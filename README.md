@@ -24,16 +24,16 @@ Declarative vs imperative
 
 ##### There is already one service on our cluster: the Kubernetes API itself.
 
-## Kube-public
+## Kube-public and kubeconfig
 ##### List the pods in the kube-public namespaces:
 	$ kubectl -n kube-public get pods
 ##### List ConfigMap objects:
 	$ kubectl -n kube-public get configmaps
 ##### Inspect cluster-info
 	$ kubectl -n kube-public get configmap cluster-ingo -o yaml
-###### Retrive cluster-info
+#####  Retrive cluster-info
 	$ curl -k https://10.96.0.1/api/v1/namespaces/kube-public/configmaps/cluster-info
-######Display the content of ```kubeconfig```
+##### Display the content of ```kubeconfig```
 	$ curl -sk https://10.96.0.1/api/v1/namespaces/kube-public/configmaps/cluster-info | jq -r .data.kubeconfig
 
 
