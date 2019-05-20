@@ -133,5 +133,10 @@ https://github.com/jonmosco/kube-ps1
 Extracting the token
 	kubectl get secret $SECRET -o yaml
 	TOKEN=$( kubectl get secret $SECRET -o json | jq -r .data.token | openssl base64 -d -A)
+or
+
+	$ kubectl config set-credentials sa-user --token=$(kubectl get secret <secret_name> -o jsonpath={.data.token} | base64 -d)
+
+https://www.ibm.com/developerworks/community/blogs/fe25b4ef-ea6a-4d86-a629-6f87ccf4649e/entry/Configuring_the_Kubernetes_CLI_by_using_service_account_tokens1?lang=en
 
 
