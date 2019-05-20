@@ -9,7 +9,7 @@
 
 ## KUBERNETES OBJECTS
 
- * **_DaemonSet_**: It automatically deploys Pods onto new hosts are deployed into the cluster.
+ * **_DaemonSet_**: It automatically deploys Pods onto new hosts are deployed into the cluster
 
  * **_Pod_**: A running process on the cluster. Can be an application container (sometimes multiple containers)
 
@@ -20,12 +20,12 @@
 
 ## KUBERNETES Network
 
- * **_Cluster IP_**: It is allocated an internal IP that other components can use to access the pods.
+ * **_Cluster IP_**: It is allocated an internal IP that other components can use to access the pods
 
- * **_Target port_**: Target ports allows us to separate the port the service is available on from the port the application is listening on.
+ * **_Target port_**: Target ports allows us to separate the port the service is available on from the port the application is listening on
 
- * **_NodePort_**: NodePort exposes the service on each Node's IP via the defined static port.
+ * **_NodePort_**: NodePort exposes the service on each Node's IP via the defined static port
 
- * **_External IPs_** Another approach to making a service available outside of the cluster is via External IP addresses.
+ * **_External IPs_** Another approach to making a service available outside of the cluster is via External IP addresses
 
 
