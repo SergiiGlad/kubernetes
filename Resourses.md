@@ -18,7 +18,7 @@
 
  * *Cluster IP*: It is allocated an internal IP that other components can use to access the pods.
 
- * *Target port*: Target ports allows us to separate the port the service is available on from the port the application is listening on
+ * *Target port*: Target ports allows us to separate the port the service is available on from the port the application is listening on.
 
  * *NodePort*: NodePort exposes the service on each Node's IP via the defined static port.
 
