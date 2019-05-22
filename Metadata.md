@@ -8,26 +8,18 @@ list of containers in a pod
 
 Namespace kube-system
 
-POD : pod/etcd-docker-for-desktop
-	etcd
-POD : pod/kube-apiserver-docker-for-desktop
-	kube-apiserver
-POD : pod/kube-controller-manager-docker-for-desktop
-	kube-controller-manager
-POD : pod/kube-dns-86f4d74b45-dvbkc
-	kubedns dnsmasq sidecar
-POD : pod/kube-proxy-krkh7
-	kube-proxy
-POD : pod/kube-scheduler-docker-for-desktop
-	kube-scheduler
-POD : pod/kubernetes-dashboard-669f9bbd46-xm9pw
-	kubernetes-dashboard
-POD : pod/kubernetes-dashboard-head-5fdbcf4c7b-7gdhj
-	kubernetes-dashboard-head
-POD : pod/tiller-deploy-7878bfc556-mkjrt
-	tiller
-POD : pod/weave-net-clxcz
-	weave weave-npc
+POD Name | Container(s)
+--- | ---
+pod/etcd-docker-for-desktop | etcd
+pod/kube-apiserver-docker-for-desktop | kube-apiserver
+pod/kube-controller-manager-docker-for-desktop | kube-controller-manager
+pod/kube-dns-86f4d74b45-dvbkc | kubedns dnsmasq sidecar
+pod/kube-proxy-krkh7 | 	kube-proxy
+pod/kube-scheduler-docker-for-desktop | kube-scheduler
+pod/kubernetes-dashboard-669f9bbd46-xm9pw | kubernetes-dashboard
+pod/kubernetes-dashboard-head-5fdbcf4c7b-7gdhj | kubernetes-dashboard-head
+pod/tiller-deploy-7878bfc556-mkjrt | tiller
+pod/weave-net-clxcz | weave weave-npc
 
 
 ## Deploy Persistent Volume
