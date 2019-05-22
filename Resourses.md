@@ -24,6 +24,8 @@ Kubernetes resources can be created directly on the command line but are usually
 
 ## KUBERNETES OBJECTS
 
+### Workload
+
  * **_DaemonSet_**: It automatically deploys Pods onto new hosts are deployed into the cluster
 
  * **_Pod_**: A running process on the cluster. Can be an application container (sometimes multiple containers)
@@ -32,7 +34,15 @@ Kubernetes resources can be created directly on the command line but are usually
 
  * **_Deployment_**: Describes the desired state for how pods should be deployed across a cluster
  
-* **_REPLICATION CONTROLLER_**: Ensure that a specified number of pod replicas a re running on worker nodes at all times.
+ * **_REPLICATION CONTROLLER_**: Ensure that a specified number of pod replicas a re running on worker nodes at all times.
+
+ * **_StatefulSets_**: Keeps unique IDs in replicas
+
+### Config and Storage
+
+ * **_Secrets_**: store pieces of data in k8s e.g. Identity Information (securely)
+
+ * **_Config Maps_**: same as Secret ( unprotected )
 
 
 ## KUBERNETES Network
