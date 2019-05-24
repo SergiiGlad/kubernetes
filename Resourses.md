@@ -22,6 +22,8 @@ Kubernetes resources can be created directly on the command line but are usually
  
  * **_kube-proxy_**: manages networking rules so connections to service IP addresses are correctly routed to pods
 
+ * **_kube-dns_**: provide naming and discovery for the services that are defined in the cluster
+
 ## KUBERNETES OBJECTS
 
 ### Workload

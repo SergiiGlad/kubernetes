@@ -4,6 +4,7 @@
  * We can see the full list by running ``` kubectl api-resources```
  * We can view the definition of a field in a resource ``` kubectl explain node.spec```
  * ```kubectl describe``` will retrieve some extra information about the resource
+ * We can see the components that make up the Kubernetes cluster ```kubectl get componentstatuses```	
 ##
 
 Declarative vs imperative
@@ -35,6 +36,58 @@ Declarative vs imperative
 	$ curl -k https://10.96.0.1/api/v1/namespaces/kube-public/configmaps/cluster-info
 ##### Display the content of ```kubeconfig```
 	$ curl -sk https://10.96.0.1/api/v1/namespaces/kube-public/configmaps/cluster-info | jq -r .data.kubeconfig
+
+## Mastering the KUBECONFIG file
+
+#### Know the kubeconfig precedence
+
+ * flag ```kubectl --kubeconfig .kube/config get po```
+ * env ```KUBECONFIG=./kube/config kubectl get po```
+ * use path ``` $HOME/.kube/config
+
+#### Using multiple kubeconfigs at once
+
+```
+export KUBECONFIG=file1:file2
+kubectl get pods --context=cluster-1
+kubectl get pods --context=cluster-2
+```
+
+#### Merging kubeconfig files
+```
+KUBECONFIG=file1:file2:file3 kubectl config view \
+    --merge --flatten > out.txt
+```
+#### Extracting a context from a kubeconfig file
+```
+KUBECONFIG=in.txt kubectl config view \
+    --minify --flatten --context=context-1 > out.txt
+```
+
+#### Use kubectl without a kubeconfig
+
+```
+KUBECONFIG= kubectl get nodes \
+ --server https://localhost:6443 \
+ --user docker-for-desktop \
+ --client-certificate my.cert \
+ --client-key my.key \
+ --insecure-skip-tls-verify
+```
+
+#### Know which context you’re pointing at
+
+```
+$ kubeon
+{⎈ |N/A:N/A} $ export KUBECONFIG=f2
+{⎈ |docker-for-desktop:default} $ export KUBECONFIG=f1
+{⎈ |gke_ahmetb_us-central1-b_mycluster:kube-system} $ kubens default
+Active namespace is "default".
+{⎈ |gke_ahmetb_us-central1-b_mycluster:kube-system} $ kubeoff
+$
+```
+[Mastering the KUBECONFIG docs](https://medium.com/@ahmetb/mastering-kubeconfig-4e447aa32c75)
+
 
 ## Setting up Kubernetes && ```kubeadm``` drawbacks
 
@@ -137,6 +190,6 @@ or
 
 	$ kubectl config set-credentials sa-user --token=$(kubectl get secret <secret_name> -o jsonpath={.data.token} | base64 -d)
 
-https://www.ibm.com/developerworks/community/blogs/fe25b4ef-ea6a-4d86-a629-6f87ccf4649e/entry/Configuring_the_Kubernetes_CLI_by_using_service_account_tokens1?lang=en
+[Configuring the Kubernetes CLI by using service account tokens ](https://www.ibm.com/developerworks/community/blogs/fe25b4ef-ea6a-4d86-a629-6f87ccf4649e/entry/Configuring_the_Kubernetes_CLI_by_using_service_account_tokens1?lang=en)
 
 
