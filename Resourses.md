@@ -57,6 +57,8 @@ Kubernetes resources can be created directly on the command line but are usually
 
  * **_External IPs_** Another approach to making a service available outside of the cluster is via External IP addresses
 
+[Lab 3 ](https://www.katacoda.com/courses/kubernetes/deploy-calico-networking "Network Policy")
+
 ## STORAGE
 
  * **_PERSISTENT VOLUME CLAIM_**: requests Kubernetes to dynamically allocate storage from a Storage Class.
@@ -66,4 +68,13 @@ Kubernetes resources can be created directly on the command line but are usually
 	
  * **_ResourceQuota_**: specifying a quota allows you to restrict how much of a cluster's resources can be consumed across all pods in a namespace ( cpu, memory, pods, services etc ).
 
- * **_namespace_**: uses to avoid name collisions, to control access and to set quotas 
+ * **_namespace_**: uses to avoid name collisions, to control access and to set quotas
+ 
+ * **_Readiness Probes_**: checks if an application is ready to start processing traffic
+ 
+ * **_Labels_** are key/value pairs that can be attached to Kubernetes objects such as a Pods adn ReplicaSets
+
+ * **_Annotation_** that resebles label are key/value pairs that can be leveragedby tools and libraries
+
+[Site Reliability Engineer](http://shop.oreilly.com/product/0636920041528.do)
+ 

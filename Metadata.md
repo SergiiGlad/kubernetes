@@ -8,6 +8,15 @@ list of containers in a pod
 
 Namespace kube-system
 
+**Controller** _The controller manager watches the state of the cluster via the API to ensure all requsted services are running. When new services are deployed, the controller will communicate with the API and nodes to complete the required tasks_
+
+**Schedule** _The Scheduler Server handles tracking resource use. It ensures containers can ru on it's assigned node without overloading capacity_
+
+**DNS** _DNS allows containers to communicate via well-known names instead of IP addresses_
+
+**Proxy** _Each node in the cluster requires a running proxy server. The proxy is responsibility for managing communications by modifying the IPTables of the host machine. It also handles load balancing of traffic between containers on a host_
+
+
 POD Name | Container(s)
 --- | ---
 pod/etcd-docker-for-desktop | etcd

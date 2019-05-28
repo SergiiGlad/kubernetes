@@ -41,6 +41,20 @@ Resources are requested per container, not per Pod. The total resources requeste
 ## Persisting	Data	with	Volumes
 
 
+## LABELS
+
+###### $ kubectl get po --show-labels
+
+###### $ kubectl get po -l run=kuard
+	or
+###### $ kubectl get po --selector="run=kuard,ver=2"
+
+###### $ kubectlget pods --selector="app in (alpaca,bandicoot)"
+
+###### $ kubectl get deployments --selector="canary" { all deployment with canary label }
+
+
+
 
 
 
