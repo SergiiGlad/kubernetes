@@ -39,6 +39,8 @@ Kubernetes resources can be created directly on the command line but are usually
  * **_REPLICATION CONTROLLER_**: Ensure that a specified number of pod replicas a re running on worker nodes at all times.
 
  * **_StatefulSets_**: Keeps unique IDs in replicas
+ 
+ * **_Replica set_**: easy to create and manage replicated sets of Pods (Redundancy, Scale, Sharding), pattern for Pods
 
 ### Config and Storage
 
@@ -75,6 +77,19 @@ Kubernetes resources can be created directly on the command line but are usually
  * **_Labels_** are key/value pairs that can be attached to Kubernetes objects such as a Pods adn ReplicaSets
 
  * **_Annotation_** that resebles label are key/value pairs that can be leveragedby tools and libraries
+ 
+ * **_Endpoints_** Some app want to be able to use services without using a cluster IP
 
+ * **_Autoscaling a ReplicaSet
+ “Horizontal	pod	autoscaling”	is	kind	of	a	mouthful,	and	you	might	wonder	why
+it	is	not	simply	called	“autoscaling.”	Kubernetes	makes	a	distinction	between
+horizontal	scaling,	which	involves	creating	additional	replicas	of	a	Pod,	and
+vertical	scaling,	which	involves	increasing	the	resources	required	for	a	particular
+Pod	(e.g.,	increasing	the	CPU	required	for	the	Pod).	Vertical	scaling	is	not
+currently	implemented	in	Kubernetes,	but	it	is	planned.	
+
+
+
+	Book 
 [Site Reliability Engineer](http://shop.oreilly.com/product/0636920041528.do)
  

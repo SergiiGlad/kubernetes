@@ -16,6 +16,13 @@ The Pod	manifest will be submitted to the Kubernetes API server.The Kubernetes s
 
 ``` $ kubectl port-forward po kuard 8080:8080 ```
 
+If your cluster in the cloud sameplace, you can use SSh tunneling with something like this:
+
+	ssh <kube node> -L 8081:localhost:8080 
+	
+	curl localhost:8081
+
+
 #### Getting more info with Logs
 
 ``` $ kubectl logs kuard ```
@@ -53,10 +60,22 @@ Resources are requested per container, not per Pod. The total resources requeste
 
 ###### $ kubectl get deployments --selector="canary" { all deployment with canary label }
 
+## Endpoint
 
+###### $ kubectl describe endpoints alpaca-prod
 
+###### $ kubectl get endpoints alpaca-prod --watch
 
+## Replica Set
 
+###### $ kubectl get pods -l app=kuard,version=2 { finding a set of Pods for replica set}
 
+###### $ kubectl scale kuard --replicas=4 { scale up to four replicas }
+ 
+###### $ kubectl autoscale rs kuard --min=2 --max=5 --cpu-percent=80 { scale base on CPU }
+
+###### $ kubectl get hpa { horizonttal pod autoscaling }
+
+###### $ kubectl delete	rs kuard --cascade=false  { delete th Podsthat are being managed by the ReplicaSet, not the Pod }
 
 	
