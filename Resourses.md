@@ -28,13 +28,12 @@ Kubernetes resources can be created directly on the command line but are usually
 
 ### Workload
 
- * **_DaemonSet_**: It automatically deploys Pods onto new hosts are deployed into the cluster
-
+ * **_DaemonSet_**: It automatically deploys Pods onto new hosts are deployed into the cluster. To schedule a single Pod on every node within the cluster.
  * **_Pod_**: A running process on the cluster. Can be an application container (sometimes multiple containers)
 
  * **_Service_**: Defines a logical set of pod and policies for accessing Pods. Also act as LoadBalance
 
- * **_Deployment_**: Describes the desired state for how pods should be deployed across a cluster
+ * **_Deployment_**: Describes the desired state for how pods should be deployed across a cluster. Using Deployment you can simply and reliably rollout new software version without downtime or error. This "rollout: process is configurable and careful.
  
  * **_REPLICATION CONTROLLER_**: Ensure that a specified number of pod replicas a re running on worker nodes at all times.
 
@@ -42,11 +41,13 @@ Kubernetes resources can be created directly on the command line but are usually
  
  * **_Replica set_**: easy to create and manage replicated sets of Pods (Redundancy, Scale, Sharding), pattern for Pods
 
+ * **_Jobs_**: A Job creates Pods that run until successful termination	(i.e.,	exit	with	0).
+
 ### Config and Storage
 
  * **_Secrets_**: store pieces of data in k8s e.g. Identity Information (securely)
 
- * **_Config Maps_**: same as Secret ( unprotected )
+ * **_Config Maps_**: same as Secret ( unprotected ). ConfigMap are used to provide configuration information for workloads
 
 
 ## KUBERNETES Network

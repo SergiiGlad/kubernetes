@@ -78,4 +78,24 @@ Resources are requested per container, not per Pod. The total resources requeste
 
 ###### $ kubectl delete	rs kuard --cascade=false  { delete th Podsthat are being managed by the ReplicaSet, not the Pod }
 
-	
+## Jobs:	
+
+Run Jobs useing cli
+
+$	kubectl	run	-i	oneshot	\
+	--image=gcr.io/kuar-demo/kuard-amd64:1	\
+	--restart=OnFailure	\
+	--	--keygen-enable	\
+		--keygen-exit-on-complete	\
+		--keygen-num-to-gen	10
+
+There are some things to note here:
+ * the	 **-i**  option to  kubectl indicates that this	is an interactive command. kubectl  will wait until the Job is running	and then show the log output from the first (and in this case only) pod	in the Job.
+
+ * **--restart=OnFailure** 	is the option that tells kubectl  to create a Job object. 
+
+ * All of the options after  **--** are command-line arguments to the container image. These instruct our test server ( kuard ) to generate	10 4,096-bit SSH keys and then	exit.
+
+ * Your	output may not match this exactly.  kubectl often misses the first couple of lines of output with the  -i option.
+
+
