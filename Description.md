@@ -14,7 +14,7 @@ The Pod	manifest will be submitted to the Kubernetes API server.The Kubernetes s
 
 #### Using Port Forwarding
 
-``` $ kubectl port-forward po kuard 8080:8080 ```
+``` $ kubectl port-forward kuard 8080:8080 ```
 
 If your cluster in the cloud sameplace, you can use SSh tunneling with something like this:
 
