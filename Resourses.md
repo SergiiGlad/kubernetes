@@ -60,7 +60,9 @@ Kubernetes resources can be created directly on the command line but are usually
 
  * **_External IPs_** Another approach to making a service available outside of the cluster is via External IP addresses
 
-[Lab 3 ](https://www.katacoda.com/courses/kubernetes/deploy-calico-networking "Network Policy")
+[Deploy calico network policy Katakoda ](https://www.katacoda.com/courses/kubernetes/deploy-calico-networking "Network Policy")
+
+[IBM Kubernetes Networking] (https://github.com/IBM/kubernetes-networking)
 
 ## STORAGE
 
