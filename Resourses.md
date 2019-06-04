@@ -64,6 +64,19 @@ Kubernetes resources can be created directly on the command line but are usually
 
 [IBM Kubernetes Networking] (https://github.com/IBM/kubernetes-networking)
 
+## NodePort and LoadBalancer Services
+
+The types of IPs presented so far, pod IPs and ClusterIPs, are usable only from within the Kubernetes cluster. It is not possible for applications outside the cluster to use them to reach a pod (without additional configuration, e.g. adding your own routes). For that we need to use a type of service which provides an external IP address. Kubernetes provides two service types which do this.
+
+   * A ```NodePort``` service exposes the service at a static port (the NodePort) on each node. A ClusterIP service, to which the NodePort service will route, is automatically created.
+
+   * A ```LoadBalancer``` service exposes the service externally using a cloud provider's load balancer. NodePort and ClusterIP services, to which the external load balancer will route, are automatically created.
+   
+ ## Ingress
+
+A Kubernetes LoadBalancer service is a TCP layer (layer 4) load balancer. If you want the features of an application layer (layer 7) load balancer, you need to use an Ingress resource instead of a LoadBalancer service. Let's change the guestbook application for using a LoadBalancer service to using an Ingress resource. First let's delete the existing guestbook service.
+
+
 ## STORAGE
 
  * **_PERSISTENT VOLUME CLAIM_**: requests Kubernetes to dynamically allocate storage from a Storage Class.
