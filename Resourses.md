@@ -96,7 +96,7 @@ A Kubernetes LoadBalancer service is a TCP layer (layer 4) load balancer. If you
  
  * **_Endpoints_** Some app want to be able to use services without using a cluster IP
 
- * **_Autoscaling a ReplicaSet
+ * **_Autoscaling_** a ReplicaSet
  “Horizontal	pod	autoscaling”	is	kind	of	a	mouthful,	and	you	might	wonder	why
 it	is	not	simply	called	“autoscaling.”	Kubernetes	makes	a	distinction	between
 horizontal	scaling,	which	involves	creating	additional	replicas	of	a	Pod,	and
