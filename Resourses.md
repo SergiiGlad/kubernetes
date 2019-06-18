@@ -28,7 +28,7 @@ Kubernetes resources can be created directly on the command line but are usually
 
 ### Workload
 
- * **_DaemonSet_**: It automatically deploys Pods onto new hosts are deployed into the cluster. To schedule a single Pod on every node within the cluster. It's good examples as fluentd or calico network.
+ ##### * **_DaemonSet_**: It automatically deploys Pods onto new hosts are deployed into the cluster. To schedule a single Pod on every node within the cluster. It's good examples as fluentd or calico network.
  
  * **_Pod_**: A running process on the cluster. Can be an application container (sometimes multiple containers)
 
