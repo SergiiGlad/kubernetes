@@ -192,4 +192,8 @@ or
 
 [Configuring the Kubernetes CLI by using service account tokens ](https://www.ibm.com/developerworks/community/blogs/fe25b4ef-ea6a-4d86-a629-6f87ccf4649e/entry/Configuring_the_Kubernetes_CLI_by_using_service_account_tokens1?lang=en)
 
+ * m5.4xlarge — monitoring Prometheus;
+ * c5.4xlarge — Node.js (однопоточная рабочая нагрузка);
+ * c5.2xlarge — Java и Go (многопоточная рабочая нагрузка);
+ * c5.4xlarge — для контрольной панели (3 узла).
 

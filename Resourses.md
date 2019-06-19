@@ -37,7 +37,10 @@ Kubernetes resources can be created directly on the command line but are usually
  
  * **_REPLICATION CONTROLLER_**: Ensure that a specified number of pod replicas a re running on worker nodes at all times.
 
- * **_StatefulSets_**: Keeps unique IDs in replicas
+ * **_StatefulSets_**: Keeps unique IDs in replicas. StatefulSets are replicated groups of Pods similar to ReplicaSets, but unlike a ReplicaSet, they have certain unique properties:
+	* Each replica gets a persistent hostname with a unique index (e.g.,database-0 ,	 database-1 ,	etc.).
+ 	* Each replica	is created in order from lowest to highest index, and creation will block until the Pod at the previous	index is healthy and available. This also applies to	scaling	up.
+ 	* When	deleted, each replica will be deleted in order from highest to lowest. This also applies to scaling down the number of replicas.
  
  * **_Replica set_**: easy to create and manage replicated sets of Pods (Redundancy, Scale, Sharding), pattern for Pods
 
@@ -64,7 +67,7 @@ Kubernetes resources can be created directly on the command line but are usually
 
 ## STORAGE
 
- * **_PERSISTENT VOLUME CLAIM_**: requests Kubernetes to dynamically allocate storage from a Storage Class.
+ * **_PERSISTENT VOLUME CLAIM_**: requests Kubernetes to dynamically allocate storage from a Storage Class. You can declare volumes directly inside a Pod specification, but this locks that Pod specification to a particular volume provider (e.g., a specific public or private cloud).
 
 
 ## Kind
