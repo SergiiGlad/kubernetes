@@ -28,7 +28,8 @@ Kubernetes resources can be created directly on the command line but are usually
 
 ### Workload
 
- * **_DaemonSet_**: It automatically deploys Pods onto new hosts are deployed into the cluster. To schedule a single Pod on every node within the cluster.
+ * **_DaemonSet_**: It automatically deploys Pods onto new hosts are deployed into the cluster. To schedule a single Pod on every node within the cluster. It's good examples as fluentd or calico network.
+ 
  * **_Pod_**: A running process on the cluster. Can be an application container (sometimes multiple containers)
 
  * **_Service_**: Defines a logical set of pod and policies for accessing Pods. Also act as LoadBalance
@@ -63,7 +64,22 @@ Kubernetes resources can be created directly on the command line but are usually
 
  * **_External IPs_** Another approach to making a service available outside of the cluster is via External IP addresses
 
-[Lab 3 ](https://www.katacoda.com/courses/kubernetes/deploy-calico-networking "Network Policy")
+[Deploy calico network policy Katakoda ](https://www.katacoda.com/courses/kubernetes/deploy-calico-networking "Network Policy")
+
+[IBM Kubernetes Networking] (https://github.com/IBM/kubernetes-networking)
+
+## NodePort and LoadBalancer Services
+
+The types of IPs presented so far, pod IPs and ClusterIPs, are usable only from within the Kubernetes cluster. It is not possible for applications outside the cluster to use them to reach a pod (without additional configuration, e.g. adding your own routes). For that we need to use a type of service which provides an external IP address. Kubernetes provides two service types which do this.
+
+   * A ```NodePort``` service exposes the service at a static port (the NodePort) on each node. A ClusterIP service, to which the NodePort service will route, is automatically created.
+
+   * A ```LoadBalancer``` service exposes the service externally using a cloud provider's load balancer. NodePort and ClusterIP services, to which the external load balancer will route, are automatically created.
+   
+ ## Ingress
+
+A Kubernetes LoadBalancer service is a TCP layer (layer 4) load balancer. If you want the features of an application layer (layer 7) load balancer, you need to use an Ingress resource instead of a LoadBalancer service. Let's change the guestbook application for using a LoadBalancer service to using an Ingress resource. First let's delete the existing guestbook service.
+
 
 ## STORAGE
 
@@ -84,7 +100,7 @@ Kubernetes resources can be created directly on the command line but are usually
  
  * **_Endpoints_** Some app want to be able to use services without using a cluster IP
 
- * **_Autoscaling a ReplicaSet
+ * **_Autoscaling_** a ReplicaSet
  “Horizontal	pod	autoscaling”	is	kind	of	a	mouthful,	and	you	might	wonder	why
 it	is	not	simply	called	“autoscaling.”	Kubernetes	makes	a	distinction	between
 horizontal	scaling,	which	involves	creating	additional	replicas	of	a	Pod,	and

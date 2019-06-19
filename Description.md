@@ -14,7 +14,7 @@ The Pod	manifest will be submitted to the Kubernetes API server.The Kubernetes s
 
 #### Using Port Forwarding
 
-``` $ kubectl port-forward po kuard 8080:8080 ```
+``` $ kubectl port-forward kuard 8080:8080 ```
 
 If your cluster in the cloud sameplace, you can use SSh tunneling with something like this:
 
@@ -98,4 +98,34 @@ There are some things to note here:
 
  * Your	output may not match this exactly.  kubectl often misses the first couple of lines of output with the  -i option.
 
+## Network Policies
+
+Kubernetes network policies specify how pods can communicate with other pods and with external endpoints. 
+
+The following network traffic is allowed by default:
+
+    A pod accepts external traffic from any IP address to its NodePort or LoadBalancer service or its Ingress resource.
+    A pod accepts internal traffic from any other pod in the same cluster.
+    A pod is allowed outbound traffic to any IP address.
+
+Network policies let you create additional restrictions on what traffic is allowed. For example you may want to restrict external inbound or outbound traffic to certain IP addresses.
+
+```
+$ kubectl run -i --tty --rm busybox --image=busybox -- sh
+
+If you don't see a command prompt, try pressing enter.
+
+/ # nc -v -z 172.30.108.139 6379
+172.30.108.139 (172.30.108.139:6379) open
+
+/ # nc -v -z 172.30.108.140 6379
+172.30.108.140 (172.30.108.140:6379) open
+
+/ # nc -v -z 172.30.58.206 6379
+172.30.58.206 (172.30.58.206:6379) open
+
+/ # exit
+Session ended, resume using 'kubectl attach busybox-5858cc4697-hb6zs -c busybox -i -t' command when the pod is running
+deployment.apps "busybox" deleted
+```
 
