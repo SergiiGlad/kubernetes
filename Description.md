@@ -45,7 +45,14 @@ Resources are requested per container, not per Pod. The total resources requeste
 
 **The Kubernetes scheduler will ensure	that the sum of all requests of all Pods on a node does not exceed the capacity of the node.**
 
-## Persisting	Data	with	Volumes
+## Service
+
+Services can be exposed in different ways by specifying a ```__type__``` in the ServiceSpec:
+
+   * _ClusterIP_ (default) - Exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.
+   * _NodePort_ - Exposes the Service on the same port of each selected Node in the cluster using NAT. Makes a Service accessible from outside the cluster using ```__<NodeIP>:<NodePort>__```. Superset of ClusterIP.
+   * _LoadBalancer_ - Creates an external load balancer in the current cloud (if supported) and assigns a fixed, external IP to the Service. Superset of NodePort.
+   * _ExternalName_ - Exposes the Service using an arbitrary name (specified by ```__externalName__``` in the spec) by returning a CNAME record with the name. No proxy is used. This type requires v1.7 or higher of ```__kube-dns__```.
 
 
 ## LABELS
