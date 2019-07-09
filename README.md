@@ -27,6 +27,25 @@ Declarative vs imperative
 
 ``` $ kubectl get no -o json | jq ".items[] | {name:.metadata.name} + .status.capacity"```
 
+## Using ```kubectl proxy``` for authentication
+
+```kubectl proxy &```
+By default:
+* proxy binds: 127.0.0.1
+* proxy listens: 8001
+* accept connection from: ^localhost$,^127\.0\.0\.1$,^\[::1\]$
+
+Running kubectl proxy on a remote machine
+### !!!Do not do this on a real cluster: it opens full unauthenticated access!!!
+```
+kubectl proxy --port=8888 --address=0.0.0.0 --accept-hosts=.*
+```
+### Running kubectl proxy openly is a huge security risk
+
+```kubectl proxy``` also gives access to all internal services
+
+/api/v1/namespaces/<namespace>/services/<service>/proxy
+	
 ## Services
 
  * A *service* is a stable endpoint to connect to "something"
