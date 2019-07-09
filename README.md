@@ -2,6 +2,10 @@
 
 https://container.training/kube-selfpaced.yml.html#194
 
+_"However difficult life may seem, there is always something you can do and succeed at. It matters that you don't just give up."_
+												Stephen Hawking
+
+
 ## Kubernetes resources
 
  * The Kubernetes API defines a lot of objects call resources
