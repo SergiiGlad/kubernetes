@@ -69,6 +69,9 @@ Services can be exposed in different ways by specifying a ```type``` in the Serv
    * _LoadBalancer_ - Creates an external load balancer in the current cloud (if supported) and assigns a fixed, external IP to the Service. Superset of NodePort.
    * _ExternalName_ - Exposes the Service using an arbitrary name (specified by ```externalName``` in the spec) by returning a CNAME record with the name. No proxy is used. This type requires v1.7 or higher of ```kube-dns```.
 
+```
+kubectl edit service rng
+```
 
 ## LABELS
 
