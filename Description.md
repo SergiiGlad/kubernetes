@@ -1,3 +1,14 @@
+## Kubernetes architecture:
+
+Together, these services form the control plane of our cluster ( the control plane is also called the __master__)
+The Kubernetes logic (its "brains") is a collection of service:
+ 
+ * the __API server__ (our point of entry to everything!)
+ 
+ * core services like the __scheduler__ and __controller manager__
+ 
+ * __etcd__ ( a highly avaliable key/value store; the "database" of Kubernetes )
+
 ## Pods in Kubernetes
 
 #### Pod is mortal
