@@ -82,6 +82,12 @@ Services can be exposed in different ways by specifying a ```type``` in the Serv
 
 ###### $ kubectl get deployments --selector="canary" { all deployment with canary label }
 
+## Adding labels to pods
+
+```
+kubectl label pods -l app=rng enabled=yes
+```
+
 ## Endpoint
 
 ###### $ kubectl describe endpoints alpaca-prod
