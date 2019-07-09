@@ -13,11 +13,13 @@ The Kubernetes logic (its "brains") is a collection of service:
 
 ## Pods in Kubernetes
 
-#### Pod is mortal
+### Pod is mortal
 
 However, applications in different Pods	are isolated from each other;they have different IP addresses, different hostnames, and	more. Containers in ifferent Pods running on the same node might as well be on different servers.
 
-**Multiple Pods can be placed on the same machine	as long	as there are sufficient	resources.**	
+**Multiple Pods can be placed on the same machine as long as there are sufficient resources.**	
+
+![alt text](concepts.png)
 
 Multiple instances of a	Pod can	be deployed by repeating the workflow described	here. However,	ReplicaSet are better suited for running multiple instances of a Pod.
 
