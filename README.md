@@ -102,6 +102,11 @@ KUBECONFIG=file1:file2:file3 kubectl config view \
 KUBECONFIG=in.txt kubectl config view \
     --minify --flatten --context=context-1 > out.txt
 ```
+To update the server address, run:
+```
+kubectl config set-cluster kubernetes --server=https://X.X.X.X:6443
+# Make sure to replace X.X.X.X with the IP address of node1!
+```
 
 #### Use kubectl without a kubeconfig
 
