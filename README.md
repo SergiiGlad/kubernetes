@@ -40,11 +40,13 @@ Running kubectl proxy on a remote machine
 ```
 kubectl proxy --port=8888 --address=0.0.0.0 --accept-hosts=.*
 ```
-### Running kubectl proxy openly is a huge security risk
+### !!!Running kubectl proxy openly is a huge security risk!!!
 
 ```kubectl proxy``` also gives access to all internal services
 
-/api/v1/namespaces/<namespace>/services/<service>/proxy
+We just add the URI to the end of the request, for instance:
+
+```/api/v1/namespaces/<namespace>/services/<service>/proxy```
 	
 ## Services
 
