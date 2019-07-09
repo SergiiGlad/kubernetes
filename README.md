@@ -28,9 +28,17 @@ Declarative vs imperative
  * A *service* is a stable endpoint to connect to "something"
  
 Viewing andpoint details
- 
- ``` kubectl get endpoints```
 
+ ``` 
+ kubectl get endpoints
+ ```
+
+#### Headless Services
+
+The Kubernetes API create a set of DNS records type "A"
+```
+kubectl expose deploy httpenv --port 8888 --cluster-ip=None
+```
 ##### There is already one service on our cluster: the Kubernetes API itself.
 
 ## Kube-public and kubeconfig
