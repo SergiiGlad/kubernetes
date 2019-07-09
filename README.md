@@ -26,6 +26,10 @@ Declarative vs imperative
 ## Services
 
  * A *service* is a stable endpoint to connect to "something"
+ 
+Viewing andpoint details
+ 
+ ``` kubectl get endpoints```
 
 ##### There is already one service on our cluster: the Kubernetes API itself.
 
