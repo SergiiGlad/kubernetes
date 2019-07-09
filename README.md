@@ -50,7 +50,7 @@ We just add the URI to the end of the request, for instance:
 
 if we want to access a TCP service we can use kubectl port-forward instead
 ```
-kubectl port-forward service/name_of_service local_port:remote_port
+kubectl port-forward svc/redis 10000:6379 &
 ```
 	
 ## Services
