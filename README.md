@@ -125,9 +125,15 @@ or
 
 ## Various ways of creating resoutces
 
- * ```kubectl run```
- * ```kubectl create <resource>
+Under the hood, ```kubectl run``` invokes "generator" to create resource descriptions 
+ * ```kubectl run --restart=OnFailure```
+
+ * ```kubectl create <resource>```
  * ```kubectl create -f foo.yaml``` or ```kubectl apply -f foo.yaml```
+ 
+We can also create cronjobs
+ * ```kubectl run --schedule=...``` 
+
 
 ## Streaming logs of many pods
 
