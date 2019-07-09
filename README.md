@@ -47,6 +47,11 @@ kubectl proxy --port=8888 --address=0.0.0.0 --accept-hosts=.*
 We just add the URI to the end of the request, for instance:
 
 ```curl localhost:8001/api/v1/namespaces/default/services/webui/proxy/index.html```
+
+if we want to access a TCP service we can use kubectl port-forward instead
+```
+kubectl port-forward service/name_of_service local_port:remote_port
+```
 	
 ## Services
 
@@ -163,10 +168,13 @@ List most resource type:
    * rarely used directly
   
 ## Scaling our application
-
-	kubectl scale deploy/pingpong --replicas 3
+```
+kubectl scale deploy/pingpong --replicas 3
+```
 or
-	kubectl scale deployment pingpong --replicas 3
+```
+kubectl scale deployment pingpong --replicas 3
+```
 
 
 ## Various ways of creating resoutces
