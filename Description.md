@@ -8,6 +8,8 @@ The Kubernetes logic (its "brains") is a collection of service:
  * core services like the __scheduler__ and __controller manager__
  
  * __etcd__ ( a highly avaliable key/value store; the "database" of Kubernetes )
+ 
+ ![alt text](k8s-arch.png)
 
 ## Pods in Kubernetes
 
