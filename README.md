@@ -1,3 +1,7 @@
+# Deploying and Scaling Microservices with Docker and Kubernetes
+
+https://container.training/kube-selfpaced.yml.html#194
+
 ## Kubernetes resources
 
  * The Kubernetes API defines a lot of objects call resources
