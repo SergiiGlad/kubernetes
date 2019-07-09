@@ -46,7 +46,7 @@ kubectl proxy --port=8888 --address=0.0.0.0 --accept-hosts=.*
 
 We just add the URI to the end of the request, for instance:
 
-```/api/v1/namespaces/<namespace>/services/<service>/proxy```
+```curl localhost:8001/api/v1/namespaces/default/services/webui/proxy/index.html```
 	
 ## Services
 
