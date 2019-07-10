@@ -91,6 +91,11 @@ kubectl edit service rng
 kubectl label pods -l app=rng enabled=yes
 ```
 
+#### Update the service to add ```enabled: yes``` to its selector:
+```
+kubectl edit service rng
+```
+
 ## Endpoint
 
 ###### $ kubectl describe endpoints alpaca-prod
