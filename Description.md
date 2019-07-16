@@ -44,14 +44,29 @@ If your cluster in the cloud sameplace, you can use SSh tunneling with something
 
 Adding the  --previous 	flag will get logs from	a previous instance of the container. This is useful, for example, if your containers are continuously restarting due to a problem at container startup.
 
-## Liveness and Readiness Probe
+
+## Healthchecks
+
+### Liveness and Readiness Probe
 
 **_Liveness_** probes are defined per container, which means each container inside a Pod is health-checked separately.
 
 Kubernetes makes a distinction between **_liveness_** and **_readiness_**.
 
-Containers that	fail liveness checks are restarted.Readiness describes when a container	is ready to serve user requests.Containers that	fail readinesschecks are removed from service load balancers.	
-	
+Containers that	fail liveness checks is killed and are restarted (depends on the pod's __restartPolicy__ Never, OnFailure, Always ). 
+Readiness describes when a container	is ready to serve user requests and traffic.
+Containers that	fail readinesschecks are removed from service load balancers __not killed__.	
+
+#### Different types of probes
+ * HTTP request
+   * any status code between 200 and 399 indicates success
+ * TCP connection
+   * the probe the TCP port is open
+ * arbitrary exec
+   * a command is executed in the container
+   * exit code zero is success
+   
+   	
 ## Resource	Management
 
 **Resource Requests**:	Minimum	Required	Resources
