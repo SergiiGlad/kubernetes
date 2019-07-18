@@ -53,3 +53,13 @@ Helm is the best way to find, share and use software built for Kubernetes
 http://www.helm.sh
 
 ###### $ helm init { the easiest way to install ```tiller``` into the cluster }
+
+## Stern
+
+Sterm is an open source project by __Wercker__
+
+Stern allows toy to tail multiple pods on Kubernetes and multiple containers within th pod. Each result is color coded for quicker debugging
+
+stern --tail 1 --timestamps --all-namespaces weave
+
+stern -l app
