@@ -159,6 +159,14 @@ The following network traffic is allowed by default:
     A pod accepts internal traffic from any other pod in the same cluster.
     A pod is allowed outbound traffic to any IP address.
 
+A network policy is defined by the following things:
+
+  * A _pod selector_ indicating which pods it applies to
+  
+  * A list of _ingress rules_ indicating which inbound traffic is allowed
+  
+  * A list of egress rules indicating which outvound traffic is allowed
+
 Network policies let you create additional restrictions on what traffic is allowed. For example you may want to restrict external inbound or outbound traffic to certain IP addresses.
 
 ```
