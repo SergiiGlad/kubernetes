@@ -220,5 +220,49 @@ Sometimes abbreviated as __"authn"__ and __"authz"__
 
   (sitting in front of the API and setting trusted headers)
 
+```
+kubectl config view \
+      --raw \
+      -o json \
+      | jq -r .users[0].user[\"client-certificate-data\"] \
+      | openssl base64 -d -A \
+      | openssl x509 -text \
+      | grep Subject:
 
+```
+
+#### Authentication with tokens
+
+Tokens can be validated through a number of different methods:
+ * static tokens hard-coded in a file on the API server
+
+ * bootstrap tokens (special case to create a cluster or join nodes)
+
+ * OpenID Connect tokens (to delegate authentication to compatible OAuth2 providers)
+
+ * service accounts 
+
+Finding the secret
+```
+kubectl get sa default -o yaml
+SECRET=$(kubectl get sa default -o json | jq -r .secrets[0].name)
+```
+Extracting the token
+```
+kubectl get secret $SECRET -o yaml
+TOKEN=$(kubectl get secret $SECRET -o json \
+      | jq -r .data.token | openssl base64 -d -A)
+```
+
+#### Authorization in Kubernetes
+
+There are multiple ways to grant permissions in Kubernetes, called authorizers:
+
+ * **Node Authorization** used internally by kubelet; we can ignore it
+
+ * **Attribute-based access control** powerful but complex and static; ignore it too
+
+ * **Webhook** each API request is submitted to an external service for approval
+
+ * **RBAC Role-based access control** associates permissions to users dynamically
 
