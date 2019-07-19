@@ -57,9 +57,11 @@ Kubernetes resources can be created directly on the command line but are usually
 
 ## KUBERNETES Network
 
- * **_Cluster IP_**: It is allocated an internal IP that other components can use to access the pods
+ * **_Cluster IP_**: It is allocated an internal reachable IP that other components can use to access the pods
 
  * **_Target port_**: Target ports allows us to separate the port the service is available on from the port the application is listening on
+ 
+ * **_hostPort_**: only really used for testing perposes or very earely to stick a pod to a specific node and publish under a specific ip address pointing to this node
 
  * **_NodePort_**: NodePort exposes the service on each Node's IP via the defined static port
 
