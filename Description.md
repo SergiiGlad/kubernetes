@@ -188,3 +188,37 @@ Session ended, resume using 'kubectl attach busybox-5858cc4697-hb6zs -c busybox 
 deployment.apps "busybox" deleted
 ```
 
+## Authentication and authorization in Kubernetes
+
+  * **Authentication** verifying the identity of a person
+
+    On a UNIX system, we can authenticate with login+password, SSH keys ...
+
+  * **Authorization**  listing what they are allowed to do
+
+    On a UNIX system, this can include file permissions, sudoer entries ...
+
+Sometimes abbreviated as __"authn"__ and __"authz"__
+
+### When the API server receives every request, it tries to authenticate it
+
+### Authentication methods
+
+* TLS client certificates
+
+  (that's what we've been doing with kubectl so far)
+
+* Bearer tokens
+
+  (a secret token in the HTTP headers of the request)
+
+* HTTP basic auth
+
+  (carrying user and password in an HTTP header)
+
+* Authentication proxy
+
+  (sitting in front of the API and setting trusted headers)
+
+
+
