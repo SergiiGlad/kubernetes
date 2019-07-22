@@ -254,6 +254,16 @@ TOKEN=$(kubectl get secret $SECRET -o json \
       | jq -r .data.token | openssl base64 -d -A)
 ```
 
+Find the ClusterIP for the **kubernetes** service:
+```
+kubectl get svc kubernetes
+API=$(kubectl get svc kubernetes -o json | jq -r .spec.clusterIP)
+```
+
+Connect with the token
+```
+curl -k -H "Authorization: Bearer $TOKEN" https://$API
+```
 #### Authorization in Kubernetes
 
 There are multiple ways to grant permissions in Kubernetes, called authorizers:
