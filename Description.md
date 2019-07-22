@@ -265,4 +265,10 @@ There are multiple ways to grant permissions in Kubernetes, called authorizers:
  * **Webhook** each API request is submitted to an external service for approval
 
  * **RBAC Role-based access control** associates permissions to users dynamically
-
+ 
+ #### Testing permission
+ ```
+ kubectl auth can-i create pod
+ 
+ kubectl auth can-i '*' services
+ ```
