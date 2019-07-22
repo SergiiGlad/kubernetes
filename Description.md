@@ -282,3 +282,24 @@ There are multiple ways to grant permissions in Kubernetes, called authorizers:
  
  kubectl auth can-i '*' services
  ```
+ 
+ ## Pod Security Policies
+ 
+* To use PSPs, we need to activate their specific admission controller  
+  ``` vi /etc/kubernetes/manifests/kube-apiserver.yaml ```
+
+* That admission controller will intercept each pod creation attempt
+
+* It will look at:
+
+   * who/what is creating the pod
+
+   * which PodSecurityPolicies they can use
+
+   * which PodSecurityPolicies can be used by the Pod's ServiceAccount
+
+* Then it will compare the Pod with each PodSecurityPolicy one by one
+
+* If a PodSecurityPolicy accepts all the parameters of the Pod, it is created
+
+* Otherwise, the Pod creation is denied and it won't even show up in kubectl get pods
