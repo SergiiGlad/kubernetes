@@ -1,4 +1,22 @@
+---
 ## Kubernetes pod can be associated with a service account
+
+### Admission controllers
+
+- When a Pod is created, it is associated with a ServiceAccount
+
+  (even if we did not specify one explicitly)
+
+- That ServiceAccount was added on the fly by an *admission controller*
+
+  (specifically, a *mutating admission controller*)
+
+- Admission controllers sit on the API request path
+
+  (see the cool diagram on next slide, courtesy of Banzai Cloud)
+
+![alt text](api-request-lifecycle.png)
+
 
 by default, it is associated with the default service account
 
