@@ -1,3 +1,11 @@
+# Deploying and Scaling Microservices with Docker and Kubernetes
+
+https://container.training/kube-selfpaced.yml.html#194
+
+_"However difficult life may seem, there is always something you can do and succeed at. It matters that you don't just give up."_
+												Stephen Hawking
+
+
 ## Kubernetes resources
 
  * The Kubernetes API defines a lot of objects call resources
@@ -19,10 +27,48 @@ Declarative vs imperative
 
 ``` $ kubectl get no -o json | jq ".items[] | {name:.metadata.name} + .status.capacity"```
 
+## Using ```kubectl proxy``` for authentication
+
+```kubectl proxy &```
+By default:
+* proxy binds: 127.0.0.1
+* proxy listens: 8001
+* accept connection from: ^localhost$,^127\.0\.0\.1$,^\[::1\]$
+
+Running kubectl proxy on a remote machine
+### !!!Do not do this on a real cluster: it opens full unauthenticated access!!!
+```
+kubectl proxy --port=8888 --address=0.0.0.0 --accept-hosts=.*
+```
+### !!!Running kubectl proxy openly is a huge security risk!!!
+
+```kubectl proxy``` also gives access to all internal services
+
+We just add the URI to the end of the request, for instance:
+
+```curl localhost:8001/api/v1/namespaces/default/services/webui/proxy/index.html```
+
+if we want to access a TCP service we can use kubectl port-forward instead
+```
+kubectl port-forward svc/redis 10000:6379 &
+```
+	
 ## Services
 
  * A *service* is a stable endpoint to connect to "something"
+ 
+Viewing andpoint details
 
+ ``` 
+ kubectl get endpoints
+ ```
+
+#### Headless Services
+
+The Kubernetes API create a set of DNS records type "A"
+```
+kubectl expose deploy httpenv --port 8888 --cluster-ip=None
+```
 ##### There is already one service on our cluster: the Kubernetes API itself.
 
 ## Kube-public and kubeconfig
@@ -62,6 +108,11 @@ KUBECONFIG=file1:file2:file3 kubectl config view \
 ```
 KUBECONFIG=in.txt kubectl config view \
     --minify --flatten --context=context-1 > out.txt
+```
+To update the server address, run:
+```
+kubectl config set-cluster kubernetes --server=https://X.X.X.X:6443
+# Make sure to replace X.X.X.X with the IP address of node1!
 ```
 
 #### Use kubectl without a kubeconfig
@@ -117,17 +168,26 @@ List most resource type:
    * rarely used directly
   
 ## Scaling our application
-
-	kubectl scale deploy/pingpong --replicas 3
+```
+kubectl scale deploy/pingpong --replicas 3
+```
 or
-	kubectl scale deployment pingpong --replicas 3
+```
+kubectl scale deployment pingpong --replicas 3
+```
 
 
 ## Various ways of creating resoutces
 
- * ```kubectl run```
- * ```kubectl create <resource>
+Under the hood, ```kubectl run``` invokes "generator" to create resource descriptions 
+ * ```kubectl run --restart=OnFailure```
+
+ * ```kubectl create <resource>```
  * ```kubectl create -f foo.yaml``` or ```kubectl apply -f foo.yaml```
+ 
+We can also create cronjobs
+ * ```kubectl run --schedule=...``` 
+
 
 ## Streaming logs of many pods
 

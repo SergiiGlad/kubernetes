@@ -51,5 +51,45 @@ Define and deploy multi-container apps in Kubernetes, from source
 Helm is the best way to find, share and use software built for Kubernetes
 
 http://www.helm.sh
+```
+helm init
+
+helm search prometheus
+
+helm install stable/prometheus \
+	-- set server.service.type=NodePort \
+	--set server.persistentVolume.enabled=false
+```
+
 
 ###### $ helm init { the easiest way to install ```tiller``` into the cluster }
+
+## Stern
+
+Sterm is an open source project by __Wercker__
+
+Stern allows toy to tail multiple pods on Kubernetes and multiple containers within th pod. Each result is color coded for quicker debugging
+
+```
+stern --tail 1 --timestamps --all-namespaces weave
+
+stern -l app
+```
+
+## Ship
+
+An easy way to get started with Kustomize
+
+Replicated __Ship__ has multiple workflows:
+  
+  * init a Kustomize overlay from a remote GitHub repository
+  
+  * customize some values using the web UI provided by Ship
+  
+  * look at the resulting files and apply them to the cluster
+  
+  ```
+  ship init https://github.com/jpetazzo/kubercoins
+  
+  ```
+  ```overlays/ship``` contains the Kustomize overlay referencing the base + our pathc(es)

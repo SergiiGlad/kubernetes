@@ -1,10 +1,25 @@
+## Kubernetes architecture:
+
+Together, these services form the control plane of our cluster ( the control plane is also called the __master__)
+The Kubernetes logic (its "brains") is a collection of service:
+ 
+ * the __API server__ (our point of entry to everything!)
+ 
+ * core services like the __scheduler__ and __controller manager__
+ 
+ * __etcd__ ( a highly avaliable key/value store; the "database" of Kubernetes )
+ 
+ ![alt text](k8s-arch.png)
+
 ## Pods in Kubernetes
 
-#### Pod is mortal
+### Pod is mortal
 
 However, applications in different Pods	are isolated from each other;they have different IP addresses, different hostnames, and	more. Containers in ifferent Pods running on the same node might as well be on different servers.
 
-**Multiple Pods can be placed on the same machine	as long	as there are sufficient	resources.**	
+**Multiple Pods can be placed on the same machine as long as there are sufficient resources.**	
+
+![alt text](concepts.png)
 
 Multiple instances of a	Pod can	be deployed by repeating the workflow described	here. However,	ReplicaSet are better suited for running multiple instances of a Pod.
 
@@ -29,14 +44,29 @@ If your cluster in the cloud sameplace, you can use SSh tunneling with something
 
 Adding the  --previous 	flag will get logs from	a previous instance of the container. This is useful, for example, if your containers are continuously restarting due to a problem at container startup.
 
-## Liveness and Readiness Probe
+
+## Healthchecks
+
+### Liveness and Readiness Probe
 
 **_Liveness_** probes are defined per container, which means each container inside a Pod is health-checked separately.
 
 Kubernetes makes a distinction between **_liveness_** and **_readiness_**.
 
-Containers that	fail liveness checks are restarted.Readiness describes when a container	is ready to serve user requests.Containers that	fail readinesschecks are removed from service load balancers.	
-	
+Containers that	fail liveness checks is killed and are restarted (depends on the pod's __restartPolicy__ Never, OnFailure, Always ). 
+Readiness describes when a container	is ready to serve user requests and traffic.
+Containers that	fail readinesschecks are removed from service load balancers __not killed__.	
+
+#### Different types of probes
+ * HTTP request
+   * any status code between 200 and 399 indicates success
+ * TCP connection
+   * the probe the TCP port is open
+ * arbitrary exec
+   * a command is executed in the container
+   * exit code zero is success
+   
+   	
 ## Resource	Management
 
 **Resource Requests**:	Minimum	Required	Resources
@@ -54,6 +84,9 @@ Services can be exposed in different ways by specifying a ```type``` in the Serv
    * _LoadBalancer_ - Creates an external load balancer in the current cloud (if supported) and assigns a fixed, external IP to the Service. Superset of NodePort.
    * _ExternalName_ - Exposes the Service using an arbitrary name (specified by ```externalName``` in the spec) by returning a CNAME record with the name. No proxy is used. This type requires v1.7 or higher of ```kube-dns```.
 
+```
+kubectl edit service rng
+```
 
 ## LABELS
 
@@ -66,6 +99,17 @@ Services can be exposed in different ways by specifying a ```type``` in the Serv
 ###### $ kubectlget pods --selector="app in (alpaca,bandicoot)"
 
 ###### $ kubectl get deployments --selector="canary" { all deployment with canary label }
+
+## Adding labels to pods
+
+```
+kubectl label pods -l app=rng enabled=yes
+```
+
+#### Update the service to add ```enabled: yes``` to its selector:
+```
+kubectl edit service rng
+```
 
 ## Endpoint
 
@@ -115,6 +159,14 @@ The following network traffic is allowed by default:
     A pod accepts internal traffic from any other pod in the same cluster.
     A pod is allowed outbound traffic to any IP address.
 
+A network policy is defined by the following things:
+
+  * A _pod selector_ indicating which pods it applies to
+  
+  * A list of _ingress rules_ indicating which inbound traffic is allowed
+  
+  * A list of egress rules indicating which outvound traffic is allowed
+
 Network policies let you create additional restrictions on what traffic is allowed. For example you may want to restrict external inbound or outbound traffic to certain IP addresses.
 
 ```
@@ -136,3 +188,118 @@ Session ended, resume using 'kubectl attach busybox-5858cc4697-hb6zs -c busybox 
 deployment.apps "busybox" deleted
 ```
 
+## Authentication and authorization in Kubernetes
+
+  * **Authentication** verifying the identity of a person
+
+    On a UNIX system, we can authenticate with login+password, SSH keys ...
+
+  * **Authorization**  listing what they are allowed to do
+
+    On a UNIX system, this can include file permissions, sudoer entries ...
+
+Sometimes abbreviated as __"authn"__ and __"authz"__
+
+### When the API server receives every request, it tries to authenticate it
+
+### Authentication methods
+
+* TLS client certificates
+
+  (that's what we've been doing with kubectl so far)
+
+* Bearer tokens
+
+  (a secret token in the HTTP headers of the request)
+
+* HTTP basic auth
+
+  (carrying user and password in an HTTP header)
+
+* Authentication proxy
+
+  (sitting in front of the API and setting trusted headers)
+
+```
+kubectl config view \
+      --raw \
+      -o json \
+      | jq -r .users[0].user[\"client-certificate-data\"] \
+      | openssl base64 -d -A \
+      | openssl x509 -text \
+      | grep Subject:
+
+```
+
+#### Authentication with tokens
+
+Tokens can be validated through a number of different methods:
+ * static tokens hard-coded in a file on the API server
+
+ * bootstrap tokens (special case to create a cluster or join nodes)
+
+ * OpenID Connect tokens (to delegate authentication to compatible OAuth2 providers)
+
+ * service accounts 
+
+Finding the secret
+```
+kubectl get sa default -o yaml
+SECRET=$(kubectl get sa default -o json | jq -r .secrets[0].name)
+```
+Extracting the token
+```
+kubectl get secret $SECRET -o yaml
+TOKEN=$(kubectl get secret $SECRET -o json \
+      | jq -r .data.token | openssl base64 -d -A)
+```
+
+Find the ClusterIP for the **kubernetes** service:
+```
+kubectl get svc kubernetes
+API=$(kubectl get svc kubernetes -o json | jq -r .spec.clusterIP)
+```
+
+Connect with the token
+```
+curl -k -H "Authorization: Bearer $TOKEN" https://$API
+```
+#### Authorization in Kubernetes
+
+There are multiple ways to grant permissions in Kubernetes, called authorizers:
+
+ * **Node Authorization** used internally by kubelet; we can ignore it
+
+ * **Attribute-based access control** powerful but complex and static; ignore it too
+
+ * **Webhook** each API request is submitted to an external service for approval
+
+ * **RBAC Role-based access control** associates permissions to users dynamically
+ 
+ #### Testing permission
+ ```
+ kubectl auth can-i create pod
+ 
+ kubectl auth can-i '*' services
+ ```
+ 
+ ## Pod Security Policies
+ 
+* To use PSPs, we need to activate their specific admission controller  
+  ``` vi /etc/kubernetes/manifests/kube-apiserver.yaml ```
+
+* That admission controller will intercept each pod creation attempt
+
+* It will look at:
+
+   * who/what is creating the pod
+
+   * which PodSecurityPolicies they can use
+
+   * which PodSecurityPolicies can be used by the Pod's ServiceAccount
+
+* Then it will compare the Pod with each PodSecurityPolicy one by one
+
+* If a PodSecurityPolicy accepts all the parameters of the Pod, it is created
+
+* Otherwise, the Pod creation is denied and it won't even show up in kubectl get pods
