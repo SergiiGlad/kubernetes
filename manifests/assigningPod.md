@@ -77,4 +77,37 @@ spec:
 
 Inter-pod affinity and anti-affinity allow you to constrain which nodes your pod is eligible to be scheduled _based on labels on pods that are already running on the node_ rather than based on labels on nodes. 
 
+pods/pod-with-pod-affinity.yaml 
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: with-pod-affinity
+spec:
+  affinity:
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: security
+            operator: In
+            values:
+            - S1
+        topologyKey: failure-domain.beta.kubernetes.io/zone
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: security
+              operator: In
+              values:
+              - S2
+          topologyKey: failure-domain.beta.kubernetes.io/zone
+  containers:
+  - name: with-pod-affinity
+    image: k8s.gcr.io/pause:2.0
+
+
 
