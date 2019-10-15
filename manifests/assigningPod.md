@@ -78,7 +78,7 @@ spec:
 Inter-pod affinity and anti-affinity allow you to constrain which nodes your pod is eligible to be scheduled _based on labels on pods that are already running on the node_ rather than based on labels on nodes. 
 
 pods/pod-with-pod-affinity.yaml 
-
+```
 apiVersion: v1
 kind: Pod
 metadata:
@@ -108,6 +108,6 @@ spec:
   containers:
   - name: with-pod-affinity
     image: k8s.gcr.io/pause:2.0
-
+```
 
 
