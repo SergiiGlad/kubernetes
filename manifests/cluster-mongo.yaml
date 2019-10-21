@@ -1,0 +1,105 @@
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+  name: regionalpd-storageclass
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-ssd
+  replication-type: regional-pd
+  zones: us-central1-b, us-central1-c, us-central1-f
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+ name: service-mongodb
+ labels:
+   name: mongodb
+spec:
+ ports:
+ - port: 27017
+   targetPort: 27017
+ clusterIP: None
+ selector:
+   role: mongodb
+---
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+ name: mongo-sa
+ namespace: webblog
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+ name: list-pods
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"]
+  verbs: ["get", "watch", "list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+ name: list-pods_mongo-sa
+roleRef:
+ kind: ClusterRole
+ name: list-pods
+ apiGroup: ""
+subjects:
+ - kind: ServiceAccount
+   name: mongo-sa
+   namespace: webblog
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+ name: mongodb
+spec:
+ serviceName: "service-mongodb"
+ replicas: 3
+ template:
+   metadata:
+     labels:
+       role: mongo
+       environment: test
+   spec:
+
+     serviceAccountName: mongo-sa
+
+     terminationGracePeriodSeconds: 10
+     containers:
+       - name: mongo
+         image: mongo:3.6.8
+         command:
+           - mongod
+           - "--replSet"
+           - rs0
+           - "--smallfiles"
+           - "--noprealloc"
+           - "--bind_ip_all"
+
+         ports:
+           - containerPort: 27017
+         volumeMounts:
+           - name: mongo-persistent-storage
+             mountPath: /data/db
+       - name: mongo-sidecar
+         image: cvallance/mongo-k8s-sidecar
+         env:
+           - name: MONGO_SIDECAR_POD_LABELS
+             value: "role=mongo,environment=test"
+ volumeClaimTemplates:
+ - metadata:
+     name: mongo-persistent-storage
+     annotations:
+       volume.beta.kubernetes.io/storage-class: "regionalpd-storageclass"
+   spec:
+     accessModes: [ "ReadWriteOnce" ]
+     resources:
+       requests:
+         storage: 10Gi
