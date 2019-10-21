@@ -2,6 +2,46 @@
 
 On this topic, we will describe what the Kubernetes is. How it works and from which components consist is.
 
+### Master components
+
+ * API server (kube-apiserver)
+ * etcd - reliable distributed key-value store
+ * Scheduler (kube-scheduler)
+ * Controllers
+   * Kube controller ( kube-controller-manager)
+     * Replication controller
+     * Endpoints controller
+     * Service account and token controllers
+   * Cloud controller (cloud-controller-manager)
+ * Add-ons
+   * Kube DNS (kube-dns)
+   * Web  UI (dashboard)
+   * Container resource
+   * Monitoring
+   * Cluster-level logging
+
+
+### Node components
+
+ * Kubelet (kubelet)
+ * Kube proxy (kube-proxy)
+ * Container runtime
+   * Docker (containerd)
+ * Monitoring/Logging
+   * Supervisord
+   * Fluentd
+
+### GKE architecture
+ * Master Node (API Server, etcd scheduler, controller-managers)
+ * Nodes running container-optimized OS or Ubuntu
+ * Kube-dns deployment
+ * Kube-dns autoscaler deployment
+ * Event-exporter deployment logging to Stackdriver Logging
+ * fluentd daemon set logging to Stackdriver Logging
+ * Heapster deployment writing to Stackdriver Monitoring
+ 
+
+
 ## 2. Deploy Kubernetes on Google Cloud (GKE)
 
 This is an initial step. We will deploy the Kubernetes cluster manually and will see how it works on GKE example.
