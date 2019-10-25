@@ -2,6 +2,13 @@
 
 https://codelabs.developers.google.com/codelabs/cloud-hello-kubernetes/index.html#0
 
+## install the command ```kubectl```
+
+```sh
+gcloud components install kubectl
+```
+
+
 ## Create a Kubernetes cluster
 
 ```
