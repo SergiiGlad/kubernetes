@@ -93,3 +93,10 @@ Replicated __Ship__ has multiple workflows:
   
   ```
   ```overlays/ship``` contains the Kustomize overlay referencing the base + our pathc(es)
+  
+  
+## Octant
+
+<https://github.com/vmware-tanzu/octant#>
+
+Octant is a tool for developers to understand how applications run on a Kubernetes cluster. It aims to be part of the developer's toolkit for gaining insight and approaching complexity found in Kubernetes. Octant offers a combination of introspective tooling, cluster navigation, and object management along with a plugin system to further extend its capabilities.
