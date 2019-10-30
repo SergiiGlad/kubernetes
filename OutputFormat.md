@@ -1,3 +1,5 @@
+<https://kubernetes.io/docs/tasks/access-application-cluster/list-all-running-container-images/>
+
 Below are some examples using jsonpath:
 
 ```shell
