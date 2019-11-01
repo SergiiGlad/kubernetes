@@ -1,36 +1,37 @@
-#
+
 # output last terminated reason not null (Error OOMKilled)
-#
+
+<https://medium.com/google-cloud/bash-hacks-gcloud-kubectl-jq-etc-c2ff351d9c3b>
 
 kubectl  get po  -n namespaces -o json \
   | jq '.items[].status.containerStatuses[].lastState.terminated.reason' \
   | grep -v null
 
-#
+
 # name all pod
-#
+
 
 kubectl  get po  --all-namespaces \
 -o go-template --template='{{range .items}}{{printf "%s \n" .metadata.name }}{{end}}'
 
 kubectl get po --all-namespaces --sort-by=.metadata.name
 
-#
+
 # metadata  pod 1
-#
+
 kubectl get po  --all-namespaces -o json | jq '.items[1]'
 
 kubectl get po --all-namespaces -o jsonpath='{.spec[48]}'  dashboard-settings-7d7597d89f-44k4c
 
-#
+
 # list pods sorted by restart config_out
-#
+
 
 kubectl get po --all-namespaces  --sort-by='status.containerStatuses[0].restartCount'
 
-#
+
 # go template with index
-#
+
 kubectl  get po  --all-namespaces  \
 -o go-template --template='{{with index  .items 48}}{{}} {{printf "%s %s \n" .metadata.name .status}}{{end}}'
 
