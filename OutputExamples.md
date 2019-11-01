@@ -70,7 +70,9 @@ kubectl get po --all-namespaces  -o go-template --template='
 
 ## map[string]interface {}
 
-``` kubectl get node/gke-gke-px-default-pool-0fa51c7f-gf4g -o json```
+``` 
+kubectl get node/gke-gke-px-default-pool-0fa51c7f-gf4g -o json
+```
 { \
     "apiVersion": "v1", \
     "kind": "Node", \
@@ -94,6 +96,7 @@ kubectl get po --all-namespaces  -o go-template --template='
             "px/metadata-node": "true" \
         }, \
 ... \
+
 
 ```sh
 kubectl get node/gke-gke-px-default-pool-0fa51c7f-gf4g \
