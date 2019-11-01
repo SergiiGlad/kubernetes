@@ -16,6 +16,10 @@ Kubernetes resources can be created directly on the command line but are usually
  
  * **_etcd_**: distributed key-value store used to persist Kubernetes system state
  
+ * **_The Kuberneres API_**: The Kubernetes API server is a "dumb server" which offers storage, versioning, validation, update, and watch semantics on API resources.
+
+(Clayton Coleman, Kubernetes Architect and Maintainer)
+ 
  * **_kube-controller-manager_**: a monitoring program that decides what changes to make when resources are added, changed, or removed
  
  * **_kube-scheduler_**: a program that decides where to run pods based on the available nodes and their configuration

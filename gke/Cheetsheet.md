@@ -28,9 +28,17 @@ IMPORTANT: Finally, set the default zone and project configuration:
 $ gcloud config set compute/zone us-central1-f
 ```
 
+<<<<<<< HEAD
 To SSH into 'example-instance' in zone us-central1-a, run:
 ```
 gcloud compute instances list
+=======
+To SSH into _example-instance_ in zone:
+```
+gcloud compute ssh example-instance --zone us-central1-a
+```
+
+>>>>>>> f1f2d2cf7c1c4e5cfe03cb0668b57583326474a6
 
 gcloud compute ssh example-instance --zone us-central1-a
 ```

@@ -139,6 +139,16 @@ $
 ```
 [Mastering the KUBECONFIG docs](https://medium.com/@ahmetb/mastering-kubeconfig-4e447aa32c75)
 
+#### Generating the kubeconfig
+
+Generate the kubeconfig file (replacing X.X.X.X with the address of kuberouter1):
+```
+kubectl config set-cluster cni --server http://X.X.X.X:8080
+kubectl config set-context cni --cluster cni
+kubectl config use-context cni
+cp ~/.kube/config ~/kubeconfig
+```
+
 
 ## Setting up Kubernetes && ```kubeadm``` drawbacks
 
