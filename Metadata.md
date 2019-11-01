@@ -93,3 +93,11 @@ Replicated __Ship__ has multiple workflows:
   
   ```
   ```overlays/ship``` contains the Kustomize overlay referencing the base + our pathc(es)
+
+## Get nodeName from spec
+``` yaml
+env:
+- name: NODE_NAME
+  valueFrom:
+    fieldRef:
+      fieldPath: spec.nodeName

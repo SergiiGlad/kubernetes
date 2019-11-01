@@ -1,0 +1,23 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: kube-system
+  name: cluster-etcd
+rules:
+- apiGroups: ["apiextensions.k8s.io"]
+  resources: ["customresourcedefinitions"]
+  verbs: ["get","list","watch","create","update","patch","delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: create-etcd
+  namespace: kube-system
+subjects:
+- kind: ServiceAccount
+  namespace: kube-system
+  name: default
+roleRef:
+  kind: Role
+  name: cluster-etcd
+  apiGroup: rbac.authorization.k8s.io
