@@ -1,5 +1,5 @@
 # Deploying and Scaling Microservices with Docker and Kubernetes
-
+remote
 https://container.training/kube-selfpaced.yml.html#194
 
 _"However difficult life may seem, there is always something you can do and succeed at. It matters that you don't just give up."_
