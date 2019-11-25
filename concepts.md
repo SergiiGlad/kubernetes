@@ -17,4 +17,21 @@ The key enhancements are:
 __Inter-pod affinity and anti-affinity__ allow you to constrain which nodes your pod is eligible 
 to be scheduled _based on labels on pods that are already running on the node_ rather than based on labels on nodes.
 
+## Not in master
+
+spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: px/enabled
+                operator: NotIn
+                values:
+                - "false"
+              - key: node-role.kubernetes.io/master
+                operator: DoesNotExist
+
+
+
 
