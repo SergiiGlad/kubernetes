@@ -2,6 +2,8 @@
 
 Master component description
 
+![alt text](KubeSysDataFlow.png)
+
 ## kube-apiserver
 
 https://cloud.ibm.com/docs/containers?topic=containers-service-arch
