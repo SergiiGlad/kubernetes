@@ -1,9 +1,5 @@
 
-<<<<<<< HEAD
-# 999Deploying and Scaling Microservices with Docker and Kubernetes
-=======
-# 888Deploying and Scaling Microservices with Docker and Kubernetes
->>>>>>> 707abe18dd63a9ec8342741ff2af10ea964c5af9
+# Deploying and Scaling Microservices with Docker and Kubernetes
 
 https://container.training/kube-selfpaced.yml.html#194
 
