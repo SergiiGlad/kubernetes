@@ -45,6 +45,10 @@ __kubernetes.io__ _The kubelet is the primary “node agent” that runs on each
 
 __cloud.ibm.com__ _By default, Kubernetes schedules a CoreDNS pod (or KubeDNS pod in version 1.12 and earlier) and service on the cluster. Containers automatically use the DNS service's IP to resolve DNS names in their searches for other pods and services._
 
+## Kubernetes Cheat Sheet
+
+![alt text](Kubernetes-Cheat-Sheet.jpg)
+
 
 
 
