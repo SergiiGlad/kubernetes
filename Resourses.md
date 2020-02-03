@@ -85,8 +85,12 @@ The types of IPs presented so far, pod IPs and ClusterIPs, are usable only from 
    
  ## Ingress
 
-A Kubernetes LoadBalancer service is a TCP layer (layer 4) load balancer. If you want the features of an application layer (layer 7) load balancer, you need to use an Ingress resource instead of a LoadBalancer service. Let's change the guestbook application for using a LoadBalancer service to using an Ingress resource. First let's delete the existing guestbook service.
-
+	A Kubernetes LoadBalancer service is a TCP layer (layer 4) load balancer. If you want the features of an application layer (layer 7) load balancer, you need to use an Ingress resource instead of a LoadBalancer service. 
+	Ingress gives you a way to route requests to services based on the request host or path, centralizing a number of services into a single entrypoint (or in this case, load balancer).
+	Basic features:
+	* load balancing
+	* SSL termination
+	* name-based virtual hosting
 
 ## STORAGE
 
