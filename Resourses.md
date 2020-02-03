@@ -115,13 +115,13 @@ vertical	scaling,	which	involves	increasing	the	resources	required	for	a	particu
 Pod	(e.g.,	increasing	the	CPU	required	for	the	Pod).	Vertical	scaling	is	not
 currently	implemented	in	Kubernetes,	but	it	is	planned.
 
-* **replicas** describes how many pods this deployment should have. In our case, there will be one only one pod created
+* **_replicas_** describes how many pods this deployment should have. In our case, there will be one only one pod created
 
-* **template** describes how each pod should look like. It describes a list of containers that should be in the Pod
+* **_template_** describes how each pod should look like. It describes a list of containers that should be in the Pod
 
-* **selector** determines which pods are considered to be part of this deployment. This uses labels to 'select' pods
+* **_selector_** determines which pods are considered to be part of this deployment. This uses labels to 'select' pods
 
-* **strategy** states how an update to a deployment should be rolled out
+* **_strategy_** states how an update to a deployment should be rolled out
 
 
 
