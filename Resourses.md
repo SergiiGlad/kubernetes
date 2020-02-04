@@ -93,6 +93,15 @@ The types of IPs presented so far, pod IPs and ClusterIPs, are usable only from 
 * load balancing
 * SSL termination
 * name-based virtual hosting
+  
+  Ingress controllers:
+* - Nginx
+* - HA Proxy
+* - Traefik
+* - Istio
+* - Linkerd
+* - GKE
+* etc
 
 ## STORAGE
 
