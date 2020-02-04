@@ -95,13 +95,13 @@ The types of IPs presented so far, pod IPs and ClusterIPs, are usable only from 
 * name-based virtual hosting
   
   Ingress controllers:
-* - Nginx
-* - HA Proxy
-* - Traefik
-* - Istio
-* - Linkerd
-* - GKE
-* etc
+- Nginx
+- HA Proxy
+- Traefik
+- Istio
+- Linkerd
+- GKE
+etc
 
 ## STORAGE
 
