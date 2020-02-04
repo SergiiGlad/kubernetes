@@ -94,7 +94,7 @@ The types of IPs presented so far, pod IPs and ClusterIPs, are usable only from 
 * SSL termination
 * name-based virtual hosting
   
-  Ingress controllers:
+Ingress controllers:
 - Nginx
 - HA Proxy
 - Traefik
