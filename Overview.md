@@ -45,6 +45,7 @@ On this topic, we will describe what the Kubernetes is. How it works and from wh
 ## 2. Deploy Kubernetes on Google Cloud (GKE)
 
 This is an initial step. We will deploy the Kubernetes cluster manually and will see how it works on GKE example.
+Pods that are running inside Kubernetes are running on a private, isolated network. By default they are visible from other pods and services within the same kubernetes cluster, but not outside that network.
 
 ## 3. Blue-Green Deployment, Rolling Update, Canary Deployment
 
