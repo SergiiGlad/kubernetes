@@ -38,7 +38,7 @@ Kubernetes resources can be created directly on the command line but are usually
 
  * **_Service_**: Defines a logical set of pod and policies for accessing Pods. It provides two main functionalities service-discovery and load-balancing.
 
- * **_Deployment_**: Describes the desired state for how pods should be deployed across a cluster. Using Deployment you can simply and reliably rollout new software version without downtime or error. This "rollout: process is configurable and careful.Deployment is responsible for updating pods in a rolling update fashion and is implemented internally in controllers.
+ * **_Deployment_**: A Deployment is responsible for creating and updating instances of your application. Describes the desired state for how pods should be deployed across a cluster. Using Deployment you can simply and reliably rollout new software version without downtime or error. This "rollout: process is configurable and careful. Deployment is responsible for updating pods in a rolling update fashion and is implemented internally in Replica Set controllers.
  
  * **_REPLICATION CONTROLLER_**: Ensure that a specified number of pod replicas a re running on worker nodes at all times.
 
