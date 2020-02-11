@@ -41,6 +41,9 @@ __cloud.ibm.com__ _The kubelet is a pod that runs on every worker node and is re
 
 __kubernetes.io__ _The kubelet is the primary “node agent” that runs on each node. It can register the node with the apiserver using one of: the hostname; a flag to override the hostname; or specific logic for a cloud provider._
 
+__kubernetes.io/tutorials__ Kubelet, a process responsible for communication between the Kubernetes Master and the Node; it manages the Pods and the containers running on a machine.
+https://kubernetes.io/docs/tutorials/kubernetes-basics/explore/explore-intro/#node-overview
+
 ## coredns
 
 __cloud.ibm.com__ _By default, Kubernetes schedules a CoreDNS pod (or KubeDNS pod in version 1.12 and earlier) and service on the cluster. Containers automatically use the DNS service's IP to resolve DNS names in their searches for other pods and services._
