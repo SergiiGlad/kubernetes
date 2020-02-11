@@ -44,6 +44,9 @@ __kubernetes.io__ _The kubelet is the primary “node agent” that runs on each
 __kubernetes.io/tutorials__ Kubelet, a process responsible for communication between the Kubernetes Master and the Node; it manages the Pods and the containers running on a machine.
 https://kubernetes.io/docs/tutorials/kubernetes-basics/explore/explore-intro/#node-overview
 
+## A Container Runtime
+A container runtime (like Docker, rkt) responsible for pulling the container image from a registry, unpacking the container, and running the application.
+
 ## coredns
 
 __cloud.ibm.com__ _By default, Kubernetes schedules a CoreDNS pod (or KubeDNS pod in version 1.12 and earlier) and service on the cluster. Containers automatically use the DNS service's IP to resolve DNS names in their searches for other pods and services._
