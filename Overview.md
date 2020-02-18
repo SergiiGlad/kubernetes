@@ -55,6 +55,9 @@ We will try the most popular methods for deployments in Kubernetes.
 
 Working with storages and stateful sets is the most frequent case in working with Kubernetes. We will describe these topics.
 
+STATEFUL CONTAINERS USING STATEFULSETS
+StatefulSet manages the deployment and scaling of a set of Pods, and provides guarantees about the ordering and uniqueness of these Pods, suitable for applications that require one or more of the following. * Stable, unique network identifiers * Stable, persistent storage * Ordered, graceful deployment and scaling * Ordered, automated rolling updates
+
 ## 5. Update StatefulSets application. DaemonSets.
 
 Hands-on step: we will deploy StatefullSet application.
