@@ -1,3 +1,22 @@
+# Proxies 
+
+https://kubernetes.io/docs/concepts/cluster-administration/proxies/#proxies
+
+There are several different proxies you may encounter when using Kubernetes:
+* The kubectl proxy
+* The apiserver proxy
+* The kube proxy
+* A Proxy/Load-balancer in front of apiserver(s)
+* Cloud Load Balancers on external services
+
+### Service Type
+
+There are 4 types of Services defined in K8S:
+
+* __ClusterIP__: access a Service via an VIP, but this VIP could only be accessed inside this cluster
+* __NodePort__: access a Service via NodeIP:NodePort, this means the port will be reserved on all nodes inside the cluster
+* __ExternalIP__: same as ClusterIP, but this VIP is accessible from outside of this cluster
+* __LoadBalancer__
 
 
 https://arthurchiao.github.io/blog/cracking-k8s-node-proxy/
