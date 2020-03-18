@@ -303,3 +303,10 @@ There are multiple ways to grant permissions in Kubernetes, called authorizers:
 * If a PodSecurityPolicy accepts all the parameters of the Pod, it is created
 
 * Otherwise, the Pod creation is denied and it won't even show up in kubectl get pods
+
+## Logging and monitoring
+
+In a standard setup, each Node runs a logging agent like __Filebeat or
+Fluentd__ that picks up container logs created by Kubernetes. 
+
+Cluster and application-level monitoring can be set up using the __Prometheus__ monitoring system and time-series database, and __Grafana__ metrics dashboard. __Prometheus__ works using a “pull” model, which scrapes HTTP endpoints (like _/metrics/cadvisor_ on the Nodes, or the _/metrics_ application REST API endpoints) periodically for metric data, which it then processes and stores. This data can then be analyzed and visualized using Grafana dashboard. Prometheus and Grafana can be launched into a Kubernetes cluster like any other Deployment and Service.
