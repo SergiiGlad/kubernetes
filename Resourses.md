@@ -60,7 +60,7 @@ Kubernetes resources can be created directly on the command line but are usually
 
 ## KUBERNETES Network
 
- * **_Cluster IP_**: It is allocated an internal reachable IP that other components can use to access the pods
+ * **_Cluster IP_**: It is allocated an internal reachable IP that other components can use to access the pods. ClusterIP services do a simple random or round-robin distribution by default. 
 
  * **_Target port_**: Target ports allows us to separate the port the service is available on from the port the application is listening on
  
@@ -74,7 +74,11 @@ Kubernetes resources can be created directly on the command line but are usually
 
 [IBM Kubernetes Networking] (https://github.com/IBM/kubernetes-networking)
 
+
+
 ## NodePort and LoadBalancer Services
+
+__Services__ in Kubernetes are implemented by the __kube-proxy__ component which runs on every node. This component creates __iptables__ rules which redirect requests to pods. Hence services are nothing else than __iptables__ rules. (There are other proxy modes available which don’t use iptables, but the procedure is the same.)
 
 The types of IPs presented so far, pod IPs and ClusterIPs, are usable only from within the Kubernetes cluster. It is not possible for applications outside the cluster to use them to reach a pod (without additional configuration, e.g. adding your own routes). For that we need to use a type of service which provides an external IP address. Kubernetes provides two service types which do this.
 
