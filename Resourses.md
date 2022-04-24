@@ -35,10 +35,13 @@ Kubernetes resources can be created directly on the command line but are usually
  * **_DaemonSet_**: It automatically deploys Pods onto new hosts are deployed into the cluster. To schedule a single Pod on every node within the cluster, except on the master node. It's good examples as fluentd or calico network.
  
  * **_Pod_**: A running process on the cluster. Can be an application container (sometimes multiple containers)
+ * **_Pod_**: A Pod is the smallest unit in Kubernetes that you create or deploy. A Pod represents a running process on your cluster as either a component of your application or an entire app. Generally, you only have one container per pod, but if you have multiple containers with a hard dependency, you can package them into a single pod and share networking  nd storage. The Pod provides a unique network IP and set of ports for your containers, and options that govern how containers should run. 
+ Containers inside a Pod can communicate with one another using localhost and ports that remain fixed as they're started and stopped on different nodes.
 
  * **_Service_**: Defines a logical set of pod and policies for accessing Pods. It provides two main functionalities service-discovery and load-balancing.
 
  * **_Deployment_**: A Deployment is responsible for creating and updating instances of your application. Describes the desired state for how pods should be deployed across a cluster. Using Deployment you can simply and reliably rollout new software version without downtime or error. This "rollout: process is configurable and careful. Deployment is responsible for updating pods in a rolling update fashion and is implemented internally in Replica Set controllers.
+ * **_Deployment_**: A Deployment represents a group of replicas of the same Pod and keeps your Pods running even when nodes they run on fail. It could represent a component of an application or an entire app.
  
  * **_REPLICATION CONTROLLER_**: Ensure that a specified number of pod replicas a re running on worker nodes at all times.
 
