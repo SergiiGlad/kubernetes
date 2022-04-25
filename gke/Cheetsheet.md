@@ -37,3 +37,6 @@ In the ssh session on my-vm, execute this command to create a CPU load:
 ```bash
 dd if=/dev/urandom | gzip -9 >> /dev/null &
 ```
+
+Google Cloud Fundamentals: Getting Started with Deployment Manager and Cloud Monitoring
+gsutil ls gs://cloud-training/
