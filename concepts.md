@@ -124,4 +124,10 @@ Kubernetes takes advantage of namespaces to separate cluster management and spec
 
 See https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/ for more information on namespaces.
 
+## Project pod templates
+https://dou.ua/forums/topic/42493/?from=tg&utm_source=telegram&utm_medium=social
 
+1. Init Container Pattern
+2. Sidecar Container Pattern
+3. Adapter Container Pattern
+4. Ambassador Container Pattern
