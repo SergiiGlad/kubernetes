@@ -4,8 +4,7 @@ https://github.com/kubernetes-sigs/kind/blob/main/images/base/Dockerfile
 
 ```bash
 kubectl get po -A
-```
-Output
+
 NAMESPACE NAME                                         READY   STATUS    RESTARTS       AGE
 kube-system          coredns-7d764666f9-2jvjv                     1/1     Running   2 (6d4h ago)   8d
 kube-system          coredns-7d764666f9-zndbg                     1/1     Running   2 (6d4h ago)   8d
@@ -16,6 +15,8 @@ kube-system          kube-controller-manager-kind-control-plane   1/1     Runnin
 kube-system          kube-proxy-pbcq9                             1/1     Running   2 (6d4h ago)   8d
 kube-system          kube-scheduler-kind-control-plane            1/1     Running   2 (6d4h ago)   8d
 local-path-storage   local-path-provisioner-67b8995b4b-l6jl7      1/1     Running   4 (6d4h ago)   8d
+
+```
 
 ```bash
 docker ps
