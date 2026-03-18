@@ -130,6 +130,4 @@ Expose api server locally
 kubectl proxy --address='172.18.0.1' --port=8001 --accept-hosts='.*'
 ```
 
-stress cluster
-kubectl apply -f https://raw.githubusercontent.com/giantswarm/kube-stresscheck/master/examples/node.yaml
 
