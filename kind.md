@@ -1,4 +1,11 @@
+CORE KUBERNETES
+
+https://github.com/jayunit100/k8sprototypes
+
+
 after installing **kind**
+
+image kind
 
 https://github.com/kubernetes-sigs/kind/blob/main/images/base/Dockerfile
 
@@ -32,3 +39,82 @@ docker exec -ti kind-control-plane sh
 ps aux
 ```
 ![ps aux](kind.png)
+
+linux tools for running Kubernetes
+* swapoff
+* iptables
+* mount
+* systemd
+* socat (kubectl port-forward)
+* nsenter
+* unshare
+* ps (kubelet keeps eye on processes)
+
+The most popular CRI is containerd
+
+```bash
+kubectl get pods -o=jsonpath='{.items[0].status.phase}'
+```
+
+## Building a Pod from scratch
+
+**chroot** - the prupose is to create a container in the distilled sense.
+**unshare** - isolated with a truly disengaged process space.
+unshare -n for network isolation
+**cgroups** - CPU and Memory limits
+Kubernetes flag --cgroup-driver
+typically we use systemd as the Linux driver
+
+## Kubernetes services
+
+### kube-proxy
+
+kube-proxy configure iptables to do low-level network routing
+
+The ability to track ongoing TCP connection in Linux, this is done with the **conntrack** module, a part of the Linux kernel
+
+`iptables-save` show info
+
+### kube-dns
+
+### Storage
+Kubernetes StorageClasses
+PersistentVolumes
+PersistentVolumeClaims
+
+Scheduling is a generic problem in computer science
+https://developer.hashicorp.com/nomad solve this problem
+
+https://www.kernel.org/doc/Documentation/cgroup-v1/cgroups.txt
+
+kubectl get nodes -o yaml
+```
+    allocatable:
+      cpu: "2"
+      ephemeral-storage: 51290592Ki
+      hugepages-2Mi: "0"
+      memory: 3972312Ki
+      pods: "110"
+```
+
+cat /var/lib/kubelet/config.yaml | grep swap
+
+Burstable, Guaranteed и BestEffort are the three QoS classes
+
+A metric is a quantifiable value of some sort
+
+There are three fundamental types of metrics that we'll concern ourselves with - histograms, gauges and cunters
+
+run Prometheus in docker
+```
+docker run -p 9090:9090   -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml   -v prometheus-data:/prometheus   prom/prometheus:latest-distroless   --config.file=/etc/prometheus/prometheus.yml   --storage.tsdb.path=/prometheus --storage.tsdb.retention.size=5GB
+```
+
+Expose api server locally
+```
+kubectl proxy --address='172.18.0.1' --port=8001 --accept-hosts='.*'
+```
+
+stress cluster
+kubectl apply -f https://raw.githubusercontent.com/giantswarm/kube-stresscheck/master/examples/node.yaml
+
