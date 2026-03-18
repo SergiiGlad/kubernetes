@@ -99,15 +99,30 @@ kubectl get nodes -o yaml
 
 cat /var/lib/kubelet/config.yaml | grep swap
 
+## QoS classes
+
 Burstable, Guaranteed и BestEffort are the three QoS classes
+
+## Monitoring the Linux kernel with Prometheus,cAdvisor, and the API server
 
 A metric is a quantifiable value of some sort
 
 There are three fundamental types of metrics that we'll concern ourselves with - histograms, gauges and cunters
 
+* __Gauges__: Indicate how many requests you get per second at any given time.
+* __Histograms__: Show bins of timing for different types of events (e.g., how many
+requests completed in under 500 ms).
+* __Counters__: Specify continuously increasing counts of events (e.g., how many total requests you’ve seen).
+
 run Prometheus in docker
 ```
-docker run -p 9090:9090   -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml   -v prometheus-data:/prometheus   prom/prometheus:latest-distroless   --config.file=/etc/prometheus/prometheus.yml   --storage.tsdb.path=/prometheus --storage.tsdb.retention.size=5GB
+docker run -p 9090:9090 \
+  -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml \
+  -v prometheus-data:/prometheus \
+     prom/prometheus:latest-distroless \
+        --config.file=/etc/prometheus/prometheus.yml \
+        --storage.tsdb.path=/prometheus \
+        --storage.tsdb.retention.size=5GB
 ```
 
 Expose api server locally
