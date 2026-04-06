@@ -138,3 +138,41 @@ There are three primary types of Kubernetes Service API objects that we can crea
 The **kube-proxy** uses a low-level routing technology like iptables or IPVS to send traffic from services into and out of Pods.
 
 ![The flow of traffic from a LoadBalancer into a Kubernetes cluster CNI](kubernetes-lb.png)
+
+looking at **kube-proxy** mode field: 
+```bash
+kubectl edit cm kube-proxy -n kube-system
+```
+
+#### CNI
+
+The CNI specification doesn’t specify the details of container networking
+The CNI specification is a generic definition for the high-level operations to add a container to a network.
+
+**CNI providers** implement the CNI specification (http://mng.bz/RENK), which defines a contract that allows container runtimes to request a working IP address for a process on startup. They also add other fancy features outside this specification (like implementing network policies or third-party network monitoring integrations).
+
+CNI Providers:
+* Calico
+* Antrea
+* Flannel
+* Weave
+* Google, EC2, and NCP
+* Cilium
+* KindNet
+
+End users won’t generally notice this difference, but it’s an important distinction to administrators because some administrators might want to use Layer 3 concepts (like BGP peering) or Layer 2 concepts (like OVS-based traffic monitoring) for broader infrastructure design goals in their clusters:
+* BGP stands for Border Gateway Protocol, which is a Layer 3 routing technology
+used commonly in the overall internet
+* OVS stands for Open vSwitch, which is a Linux kernel-based API for program-ming a switch inside your OS to create virtual IP addresses
+
+We looked at the DaemonSet functionality as an interface that both
+Calico and Antrea implement.
+
+OVS is what Antrea uses to power its CNI capabilities. Unlike BGP, it doesn’t use an IP address as the mechanism for routing directly from node to node as we saw with Calico. But, rather, it creates a bridge that runs locally on our Kubernetes node. This bridge is created using OVS.
+
+## Troubleshooting large-scale network errors
+
+**Sonobuoy**: A tool for confirming your cluster is functioning
+
+The logical data path between any two Pods in a production cluster
+![The logical data path between any two Pods in a production cluster](two-pods.png)
