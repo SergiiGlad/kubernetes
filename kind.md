@@ -130,4 +130,11 @@ Expose api server locally
 kubectl proxy --address='172.18.0.1' --port=8001 --accept-hosts='.*'
 ```
 
+There are three primary types of Kubernetes Service API objects that we can create:
+* ClusterIPs, 
+* NodePorts, and 
+* LoadBalancers
 
+The **kube-proxy** uses a low-level routing technology like iptables or IPVS to send traffic from services into and out of Pods.
+
+![The flow of traffic from a LoadBalancer into a Kubernetes cluster CNI](kubernetes-lb.png)
