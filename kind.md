@@ -176,3 +176,43 @@ OVS is what Antrea uses to power its CNI capabilities. Unlike BGP, it doesn’t 
 
 The logical data path between any two Pods in a production cluster
 ![The logical data path between any two Pods in a production cluster](two-pods.png)
+
+The data path does not take into account several caveats that can go wrong. For example, in the real world
+* The first Pod can also be subject to network policy rules.
+* There may be a firewall at the interface between nodes 10.1.2.3 and 10.1.2.4.
+* The CNI may be down or malfunctioning, meaning that the routing of the
+packet between nodes might go to the wrong place.
+* Often, in the real world, a Pod’s access to other Pods might require mTLS (mutual TLS) certificates.
+
+#### Checks
+How many packets are flowing through the network interfaces for our CNI?
+```bash
+ip -s link
+```
+Routes
+```bash
+route -n
+```
+Thus, we can see that:
+* Antrea has one routing table entry per node.
+* Calico has one routing table entry per Pod.
+
+CNI-specific tooling: Open vSwitch (OVS)
+Once we start getting into the internals of CNIs, we will need to actually look at tools such as 
+* ovs-vsctl,
+* antctl,
+* calicoctl, 
+
+Tracing the data path of active containers with **tcpdump**
+
+[!IMPORTANT]The most important thing to remember about the **kube-proxy** is that its operations are, generally speaking, independent of the operations of your CNI provider. 
+
+#### The kube-proxy and iptables
+```bash
+iptables-save
+```
+
+with tools such as ```diff```, it can be used to measure the delta
+
+### Ingress rules and NetworkPolicies are two of the sharpest features of Kubernetes networking, largely because these are both defined by the API but implemented by external services that are considered optional in a cluster. 
+
