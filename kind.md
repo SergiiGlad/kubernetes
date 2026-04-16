@@ -214,5 +214,46 @@ iptables-save
 
 with tools such as ```diff```, it can be used to measure the delta
 
-### Ingress rules and NetworkPolicies are two of the sharpest features of Kubernetes networking, largely because these are both defined by the API but implemented by external services that are considered optional in a cluster. 
+[!IMPORTANT]
+__Ingress__ rules and __NetworkPolicies__ are two of the sharpest features of Kubernetes networking, largely because these are both defined by the API but implemented by external services that are considered optional in a cluster. 
+
+### Network policy 
+NetworkPolicies in Kubernetes support blocking traffic for ingress/egress calls or
+both on any Pod.
+
+NetworkPolicies are created in a specific namespace and target Pods by label.
+* NetworkPolicies must define a type (ingress is the default).
+* NetworkPolicies are additive and are allow-only, meaning that they deny things
+by default and can be layered to allow more and more traffic whitelisting
+* Both Calico and Antrea implement the Kubernetes NetworkPolicy API differently. Calico creates new iptables rules, whereas Antrea creates OVS rules.
+* Some CNIs, like Flannel, don’t implement the NetworkPolicy API at all.
+* Some CNIs, like Cillium and OVN, (Open Virtual Network) Kubernetes, don’t implement the entire Kubernetes API’s NetworkPolicy specification (for example, Cillium doesn’t implement the recently added PortRange policy, which is Beta at the time of this publication, and OVN Kubernetes doesn’t implement the NamedPort functionality).
+
+Defining these sorts of YAML policies can be very painstaking
+https://github.com/ahmetb/kubernetes-network-policy-recipes/
+
+[!IMPORTANT] Remember, both OVS and iptables are integrated within the Linux kernel, so you don’t have to do anything special to your data center in order to use these technologies. 
+
+[Install Calico CNI](https://docs.tigera.io/calico/latest/getting-started/kubernetes/kind)
+
+
+## Ingress
+
+Ingress controllers allow you to route all traffic to your cluster 
+through a single IP address (and are a great way to save money on cloud IP addresses). 
+
+The purpose of ingress controllers is to provide named access to the outside world for the myriad of Kubernetes services you’ll run.
+
+# Pos storage and the CSI
+
+[!IMPORTANT]Do Pods retain state?
+In short, the answer is no. Don’t forget that a Pod is an ephemeral construct in almost
+all cases. In some cases (for example, with a StatefulSet) some aspects of a Pod
+(such as the IP address or, potentially, a locally mounted host volume directory) might
+persist between restarts.
+If a Pod dies for any reason, it will be recreated by a process in the Kubernetes con-
+troller manager (KCM). When new Pods are created, it is the Kubernetes scheduler’s
+job to make sure that a given Pod lands on a node capable of running it. Hence, the
+ephemeral nature of Pod storage that allows this real-time decision making is integral
+to the flexibility of managing large fleets of applications.
 
