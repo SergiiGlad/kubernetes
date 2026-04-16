@@ -232,7 +232,7 @@ by default and can be layered to allow more and more traffic whitelisting
 Defining these sorts of YAML policies can be very painstaking
 https://github.com/ahmetb/kubernetes-network-policy-recipes/
 
-[!IMPORTANT] Remember, both OVS and iptables are integrated within the Linux kernel, so you don’t have to do anything special to your data center in order to use these technologies. 
+>Remember, both OVS and iptables are integrated within the Linux kernel, so you don’t have to do anything special to your data center in order to use these technologies. 
 
 [Install Calico CNI](https://docs.tigera.io/calico/latest/getting-started/kubernetes/kind)
 
@@ -246,7 +246,8 @@ The purpose of ingress controllers is to provide named access to the outside wor
 
 # Pos storage and the CSI
 
-[!IMPORTANT]Do Pods retain state?
+>
+Do Pods retain state?
 In short, the answer is no. Don’t forget that a Pod is an ephemeral construct in almost
 all cases. In some cases (for example, with a StatefulSet) some aspects of a Pod
 (such as the IP address or, potentially, a locally mounted host volume directory) might
@@ -256,4 +257,5 @@ troller manager (KCM). When new Pods are created, it is the Kubernetes scheduler
 job to make sure that a given Pod lands on a node capable of running it. Hence, the
 ephemeral nature of Pod storage that allows this real-time decision making is integral
 to the flexibility of managing large fleets of applications.
+
 
