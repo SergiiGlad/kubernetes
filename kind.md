@@ -205,7 +205,7 @@ Once we start getting into the internals of CNIs, we will need to actually look 
 
 Tracing the data path of active containers with **tcpdump**
 
-[!IMPORTANT]The most important thing to remember about the **kube-proxy** is that its operations are, generally speaking, independent of the operations of your CNI provider. 
+>The most important thing to remember about the **kube-proxy** is that its operations are, generally speaking, independent of the operations of your CNI provider. 
 
 #### The kube-proxy and iptables
 ```bash
@@ -214,8 +214,8 @@ iptables-save
 
 with tools such as ```diff```, it can be used to measure the delta
 
-[!IMPORTANT]
-__Ingress__ rules and __NetworkPolicies__ are two of the sharpest features of Kubernetes networking, largely because these are both defined by the API but implemented by external services that are considered optional in a cluster. 
+**Ingress** rules and **NetworkPolicies**
+> are two of the sharpest features of Kubernetes networking, largely because these are both defined by the API but implemented by external services that are considered optional in a cluster. 
 
 ### Network policy 
 NetworkPolicies in Kubernetes support blocking traffic for ingress/egress calls or
@@ -246,16 +246,7 @@ The purpose of ingress controllers is to provide named access to the outside wor
 
 # Pos storage and the CSI
 
->
-Do Pods retain state?
-In short, the answer is no. Don’t forget that a Pod is an ephemeral construct in almost
-all cases. In some cases (for example, with a StatefulSet) some aspects of a Pod
-(such as the IP address or, potentially, a locally mounted host volume directory) might
-persist between restarts.
-If a Pod dies for any reason, it will be recreated by a process in the Kubernetes con-
-troller manager (KCM). When new Pods are created, it is the Kubernetes scheduler’s
-job to make sure that a given Pod lands on a node capable of running it. Hence, the
-ephemeral nature of Pod storage that allows this real-time decision making is integral
-to the flexibility of managing large fleets of applications.
+**Do Pods retain state?**
+>In short, the answer is no. Don’t forget that a Pod is an ephemeral construct in almost all cases. In some cases (for example, with a StatefulSet) some aspects of a Pod (such as the IP address or, potentially, a locally mounted host volume directory) might persist between restarts. If a Pod dies for any reason, it will be recreated by a process in the Kubernetes controller manager (KCM). When new Pods are created, it is the Kubernetes scheduler’s job to make sure that a given Pod lands on a node capable of running it. Hence, the ephemeral nature of Pod storage that allows this real-time decision making is integral to the flexibility of managing large fleets of applications.
 
 
