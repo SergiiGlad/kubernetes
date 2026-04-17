@@ -249,4 +249,40 @@ The purpose of ingress controllers is to provide named access to the outside wor
 **Do Pods retain state?**
 >In short, the answer is no. Don’t forget that a Pod is an ephemeral construct in almost all cases. In some cases (for example, with a StatefulSet) some aspects of a Pod (such as the IP address or, potentially, a locally mounted host volume directory) might persist between restarts. If a Pod dies for any reason, it will be recreated by a process in the Kubernetes controller manager (KCM). When new Pods are created, it is the Kubernetes scheduler’s job to make sure that a given Pod lands on a node capable of running it. Hence, the ephemeral nature of Pod storage that allows this real-time decision making is integral to the flexibility of managing large fleets of applications.
 
+Types of storage that typically cause problems in Kubernetes environments:
 
+* Docker/containerd/CRI storage - the copy-on-write filesystem that runs your con-
+tainers. Typically, the Kubernetes environment uses a filesystem such as btrfs, overlay, or
+overlay2
+* Kubernetes infrastructure storage — The hostPath or Secret volumes
+* Application storage — The storage volumes that Pods use in a Kubernetes cluster. Common storage volume filesystems are OpenEBS, NFS, GCE, EC2 and vSphere persistent disks, and so on.
+
+Storage:
+* The **PV PersistentVolume** is created by a dynamic storage provisioner that runs on our kind clus-
+ter. This is a container that provides Pods with storage by fulfilling PVCs on
+demand.
+* The **PVC PersistentVolumeClaim** will not be available until the PersistentVolume is ready because the
+scheduler needs to ensure that it can mount storage into the Pod’s namespace
+before starting it.
+* The kubelet will not start the Pod until the VFS has successfully mounted the
+PVC into the Pod’s filesystem namespace as a writable storage location.
+
+Once we realize that Pods can have many different types of storage, it becomes clear
+that we need a pluggable storage provider for Kubernetes. That is the purpose of the
+[CSI interface](https://kubernetes-csi.github.io/docs/).
+
+![Kubernetes CSI](kind-csi.png)
+
+CSI spec is available at [link](https://github.com/container-storage-interface/spec?tab=readme-ov-file)
+
+Many applications that areadministrative in nature use this feature **hostPath**, including
+* Prometheus, a metrics and monitoring solution, for mounting /proc and other
+system resources to check resource usage
+* Logstash, a logging integration solution, for mounting various logging directo-
+ries into containers
+* CNI providers that, as mentioned, self-install binaries into /opt/cni/bin
+* CSI providers, which use hostPaths to mount vendor-specific utilities for storage
+
+***Timothy St. Claire, an early Kubernetes maintainer and contributor***
+
+The concept behind a **StatefulSet** is that a Pod is continually recreated on the same node. In this case, rather than simply having a volume definition, we have a **VolumeClaimTemplate**. This template is named differently for each volume.
