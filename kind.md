@@ -286,3 +286,65 @@ ries into containers
 ***Timothy St. Claire, an early Kubernetes maintainer and contributor***
 
 The concept behind a **StatefulSet** is that a Pod is continually recreated on the same node. In this case, rather than simply having a volume definition, we have a **VolumeClaimTemplate**. This template is named differently for each volume.
+
+# Kubelet
+
+At a high level, the kubelet is a binary, started by systemd. The kubelet runs on every
+node and is a Pod scheduler and node agent, but only for the local node. The kubelet
+monitors and maintains information about the server it runs on for the node. The
+binary updates the Node object via calls to the API server, based on changes to the node.
+
+Images, which are tarballs, and the kubelet need well-defined APIs for executing
+binaries that run these tarballs. This is where standard APIs come into play. Two
+specifications, CRI and OCI, define the how and the what for the kubelet’s goal of
+running containers:
+* The CRI defines the how. These are the remote calls used to start, stop, and man-
+age containers and images. Any container runtime fulfills this interface in one
+way or another as a remote service.
+* The OCI defines the what. This is the standard for container image formats. When
+you start or stop a container via a CRI implementation, you are relying on that
+container’s image format to be standardized in a certain way. The OCI defines a
+tarball that contains more tarballs with a metadata file.
+
+The kubelet is an integration point for a broad range of primitives in the Linux OS.
+Some of its data structures reveal the form and function of how it has evolved. The
+kubelet has well over 100 different command-line options in two different categories:
+* Options—Toggle the behavior of the low-level Linux functionality used with Kuber-
+netes, such as rules related to maximum iptables usage or DNS configuration
+* Choices—Define the life cycle and health of the kubelet binary
+
+After all of the preflight checks are complete, the kubelet starts a big sync loop: the
+containerManager routine. This routine handles the Pod’s life cycle, which consists of
+a control loop of actions. ![Figure 9.2](kubelet.png) shows the Pod’s life cycle and the steps to manag-
+ing a Pod:
+1 Starts the Pod life cycle
+2 Ensures the Pod can run on the node
+3 Sets up storage and networking (CNI)
+4 Starts the containers via CRI
+5 Monitors the Pod
+6 Performs restarts
+7 Stops the Pod
+
+![Figure 9.3](kubelet-pod.png) illustrates the life of a container hosted on a Kubernetes node. As depicted
+in the figure
+1 A user or the replica set controller decides to create a Pod via the Kubernetes API.
+2 The scheduler finds the right home for the Pod (e.g., a host with the IP Address
+of 1.2.3.4).
+3 The kubelet on host 1.2.3.4 gets new data from its watch on the API server’s
+Pods, and it notices that it is not yet running the Pod.
+4 The Pod’s creation process starts.
+5 The pause container has a sandbox where the requested one or more contain-
+ers will live, defining the Linux namespaces and IP address created for it by the
+the kubelet and the CNI (container networking interface) provider.
+6 The kubelet communicates with the container runtime, pulling the layers of a
+container, and runs the actual image.
+7 The NGINX container starts.
+
+Part of the kubelet’s job is image management.
+
+Every container in a Pod corresponds to a runC action. We therefore need a **pause**
+container, which precedes all of the containers. A pause container
+* Waits until a network namespace is available so all containers in a Pod can share
+a single IP and talk over 127.0.0.1
+* Pauses until a filesystem is available so all containers in a Pod can share data
+over emptyDir
