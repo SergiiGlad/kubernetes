@@ -315,30 +315,30 @@ netes, such as rules related to maximum iptables usage or DNS configuration
 
 After all of the preflight checks are complete, the kubelet starts a big sync loop: the
 containerManager routine. This routine handles the Pod’s life cycle, which consists of
-a control loop of actions. ![Figure 9.2](kubelet.png) shows the Pod’s life cycle and the steps to manag-
-ing a Pod:
-1 Starts the Pod life cycle
-2 Ensures the Pod can run on the node
-3 Sets up storage and networking (CNI)
-4 Starts the containers via CRI
-5 Monitors the Pod
-6 Performs restarts
-7 Stops the Pod
+a control loop of actions. **Figure 9.2** shows the Pod’s life cycle and the steps to managing a Pod:
+![Figure 9.2](kubelet.png) 
+* 1 Starts the Pod life cycle
+* 2 Ensures the Pod can run on the node
+* 3 Sets up storage and networking (CNI)
+* 4 Starts the containers via CRI
+* 5 Monitors the Pod
+* 6 Performs restarts
+* 7 Stops the Pod
 
 ![Figure 9.3](kubelet-pod.png) illustrates the life of a container hosted on a Kubernetes node. As depicted
 in the figure
-1 A user or the replica set controller decides to create a Pod via the Kubernetes API.
-2 The scheduler finds the right home for the Pod (e.g., a host with the IP Address
+* 1 A user or the replica set controller decides to create a Pod via the Kubernetes API.
+* 2 The scheduler finds the right home for the Pod (e.g., a host with the IP Address
 of 1.2.3.4).
-3 The kubelet on host 1.2.3.4 gets new data from its watch on the API server’s
+* 3 The kubelet on host 1.2.3.4 gets new data from its watch on the API server’s
 Pods, and it notices that it is not yet running the Pod.
-4 The Pod’s creation process starts.
-5 The pause container has a sandbox where the requested one or more contain-
+* 4 The Pod’s creation process starts.
+* 5 The pause container has a sandbox where the requested one or more contain-
 ers will live, defining the Linux namespaces and IP address created for it by the
 the kubelet and the CNI (container networking interface) provider.
-6 The kubelet communicates with the container runtime, pulling the layers of a
+* 6 The kubelet communicates with the container runtime, pulling the layers of a
 container, and runs the actual image.
-7 The NGINX container starts.
+* 7 The NGINX container starts.
 
 Part of the kubelet’s job is image management.
 
