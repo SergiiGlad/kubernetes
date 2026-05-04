@@ -348,3 +348,45 @@ container, which precedes all of the containers. A pause container
 a single IP and talk over 127.0.0.1
 * Pauses until a filesystem is available so all containers in a Pod can share data
 over emptyDir
+
+The CRI routines
+The CRI consists of four high-level go interfaces. This unifies all the core functionality
+Kubernetes needs to run containers. CRI’s interfaces include
+* PodSandBoxManager—Creates the setup environment for Pods
+* ContainerRuntime—Starts, stops, and executes containers
+* ImageService—Pulls, lists, and removes images
+* ContainerMetricsGetter—Provides quantitative information about running
+containers
+
+**ImagePullSecrets**
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+labels:
+  app: myapp
+spec:
+  containers:
+  - name: myapp-container
+  image: my.secure.registry/container1:1.0
+  imagePullSecrets:
+  - name: my-secret
+```
+
+### Kubelet summary
+* The kubelet runs on every node and controls the lifecyle of Pods on that node.
+* The kubelet interacts with the container runtime to start, stop, create, and
+delete containers.
+* We have the capability to configure various functionality (such as time to evict
+Pods) within the kubelet.
+* When the kubelet starts, it runs various sanity checks on the node, creates
+cgroups, and starts various plugins, such as CSI.
+* The kubelet controls the life cycle of a Pod: starting the Pod, ensuring that it’s
+running, creating storage and networking, monitoring, performing restarts,
+and stopping Pods.
+* CRI defines the way that the kubelet interacts with the container runtime that is
+installed.
+* The kubelet is built from various Go interfaces. These include interfaces for
+CRI, image pulling, and the kubelet itself.
