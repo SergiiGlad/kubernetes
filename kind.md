@@ -416,6 +416,24 @@ nerability footprint in terms of CVEs (Common Vulnerabilities and Exposures).
 To learn more about how to build your apps from distroless base images,
 you can peruse https://github.com/GoogleContainerTools/distroless.
 
+**CoreDNS** is powered by plugins, and you read a CoreDNS configuration from the
+top down, with each plugin being a new line in the file. To view the configuration map
+for CoreDNS, you can run ``kubectl get cm coredns -n kube-system -o yaml`` on any
+cluster.
+
+ClusterFirst policies use CoreDNS as their primary resolver, which is why our resolv.conf
+file in our Pod basically had CoreDNS and nothing else. 
+> kubectl get pod coredns-66bff467f8-cr9kh -o yaml | grep dnsPolicy
+dnsPolicy: ClusterFirst
+> kubectl get pods -o yaml | grep dnsPolicy
+dnsPolicy: Default
+
+The cache plugin for CoreDNS tells CoreDNS that it can cache results for 30 seconds.
+>cache 30
+
+> [!NOTE]
+> Note that DNS tuning is a deep subject in any data center, regardless of Kubernetes. If you are interested in further tuning DNS for larger clusters, you can launch the kubelet with NodeLocalDNS policies in newer versions of Kubernetes. This policy makes DNS extremely fast by running a DaemonSet across all nodes in a cluster, which caches all DNS requests for all Pods. There are also many other CoreDNS plugin tunings you can look into, as well as Prometheus metrics, which you can monitor over time.
+
 # StatefulSets
 
 When we use a StatefulSet to deploy an application, we often do so with a headless service. A headless service is one that doesn’t have a **ClusterIP** field, and instead, directly returns an A record from a DNS server. This has some important implications for DNS. 
