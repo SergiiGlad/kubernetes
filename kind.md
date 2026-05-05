@@ -390,3 +390,74 @@ and stopping Pods.
 installed.
 * The kubelet is built from various Go interfaces. These include interfaces for
 CRI, image pulling, and the kubelet itself.
+
+
+# CoreDNS
+
+It is the only widely available
+open source DNS service with baked-in Kubernetes support. It is capable of
+* Connecting to the Kubernetes API server and slurping in IP addresses for Pods
+and Services where needed.
+* Resolving DNS service records to service IP addresses for Pods and in-cluster
+services.
+* Caching DNS entries so that large Kubernetes clusters, where hundreds of Pods
+need to resolve Services, can work in a performant manner.
+* Plugging in new functionality at compile time (not run time).
+* Scaling horizontally and performing with extremely low latency even in high-
+load environments.
+* Forwarding requests (via the https://coredns.io/plugins/forward/ plugin) for
+external cluster addresses to other upstream resolvers.
+
+  If you want to securely build containers with a few reasonable defaults,
+we recommend using the distroless image, which has most of the defaults you
+need for a microservices app without the extra bloat that can increase your vul-
+nerability footprint in terms of CVEs (Common Vulnerabilities and Exposures).
+
+To learn more about how to build your apps from distroless base images,
+you can peruse https://github.com/GoogleContainerTools/distroless.
+
+# StatefulSets
+
+When we use a StatefulSet to deploy an application, we often do so with a headless service. A headless service is one that doesn’t have a **ClusterIP** field, and instead, directly returns an A record from a DNS server. This has some important implications for DNS. 
+
+https://github.com/jayunit100/k8sprototypes
+
+#### Persistent DNS records in StatefulSets
+The Pod name plus service name combination ```curl web-ss-0.nginx```
+
+**clusterIP: None**
+
+```yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: headless-svc
+spec:
+  clusterIP: None
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  # publishNotReadyAddresses decides whether you get NXDomain records or not.
+  # Change this to true if you NEVER want an NXDOMAIN response!
+  publishNotReadyAddresses: false
+```
+
+StateFulSet
+**serviceName: "nginx"**
+```yaml
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web-ss
+spec:
+  serviceName: "nginx"
+  ...
+```
+
+In Kubernetes, DNS records for pods in a StatefulSet have a strict structure:
+**pod-name.service-name.namespace.svc.cluster.local**
