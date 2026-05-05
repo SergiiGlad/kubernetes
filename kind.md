@@ -446,7 +446,7 @@ spec:
   publishNotReadyAddresses: false
 ```
 
-StateFulSet
+StatefulSet
 **serviceName: "nginx"**
 ```yaml
 ---
@@ -460,4 +460,4 @@ spec:
 ```
 
 In Kubernetes, DNS records for pods in a StatefulSet have a strict structure:
-**pod-name.service-name.namespace.svc.cluster.local**
+>pod-name.service-name.namespace.svc.cluster.local
